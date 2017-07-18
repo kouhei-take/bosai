@@ -10,14 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717100950) do
+ActiveRecord::Schema.define(version: 20170718093656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "evacuation_points", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "number_of_evacuees"
+    t.integer  "max_evacuees"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["user_id"], name: "index_evacuation_points_on_user_id", using: :btree
+  end
+
   create_table "items", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "items_requests", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "request_id"
+    t.string   "quantity"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_items_requests_on_item_id", using: :btree
+    t.index ["request_id"], name: "index_items_requests_on_request_id", using: :btree
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "type"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "status"
+    t.string   "priority"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,4 +80,7 @@ ActiveRecord::Schema.define(version: 20170717100950) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "evacuation_points", "users"
+  add_foreign_key "items_requests", "requests"
+  add_foreign_key "requests", "users"
 end
