@@ -28,3 +28,7 @@ module Bosai
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+# def user_root_path
+#    user_requests_path
+# end

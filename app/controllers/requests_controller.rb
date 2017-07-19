@@ -8,6 +8,11 @@ class RequestsController < ApplicationController
   def edit
   end
 
+  def new
+    @request = Request.new
+    @user = User.find(current_user)
+  end
+
   def update
   end
 
