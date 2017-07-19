@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'requests/edit'
   get 'requests/update'
   get 'requests/destroy'
+  get 'requests/list'
 
   get 'pages/home'
   root to: 'pages#home'

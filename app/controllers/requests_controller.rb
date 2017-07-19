@@ -6,6 +6,10 @@ class RequestsController < ApplicationController
   def show
   end
 
+  def list
+    @request = Request.all
+  end
+
   def edit
   end
 
@@ -19,7 +23,7 @@ class RequestsController < ApplicationController
     @request = Request.new(strong_params_request)
     @request.user = current_user
     if @request.save
-      redirect_to 'new_user_request_items_request'
+      redirect_to new_user_request_items_request_path
     end
   end
 
