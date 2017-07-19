@@ -1,2 +1,21 @@
-<h1>Requests#index</h1>
-<p>Find me in app/views/requests/index.html.erb</p>
+<div class="container">
+  <h1>Requests#index</h1>
+  <p>Find me in app/views/requests/index.html.erb</p>
+
+
+  <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn btn-warning" %>
+
+
+  <h2>Your Requests</h2>
+
+    <% @requests.each do |r| %>
+      <ul>
+        <li>Priority: <%= r.priority  %></li>
+        <li>Status: <%= r.status  %></li>
+        <li>Type: <%= r.type  %></li>
+        <li>Created_at: <%= r.created_at %></li>
+        <li>Updated_at": <%= r.updated_at %></li>
+      </ul>
+    <% end %>
+
+</div>
