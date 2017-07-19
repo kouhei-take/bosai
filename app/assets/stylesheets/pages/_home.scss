@@ -2,3 +2,60 @@
  * CSS code specific to home page
  * (margin/padding adjustments)
  * ------------------------------------- */
+
+.wrapper {
+  background-color: $gray;
+}
+
+.urgent {
+  font-size: 24px;
+  color: $black;
+  background-color: #EEFC57;
+}
+
+.banner {
+  color: $white;
+  text-align: center;
+  height: 100vh;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner h1 {
+  font-size: 75px;
+  font-weight: bold;
+  text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+}
+.banner p {
+  font-size: 30px;
+  font-weight: lighter;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+}
+
+.jumbotron {
+  background:url(bosai_banner.jpg) center no-repeat;
+  background-size: cover;
+}
+
+.value_prop {
+  font-size: 24px;
+  color: $black;
+  background-color: $white;
+}
+
+.sign_up{
+  font-size: 24px;
+  color: $black;
+  background-color: $gray;
+}
+
+.news {
+  font-size: 24px;
+  color: $black;
+  background-color: $white;
+}
+
+

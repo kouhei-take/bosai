@@ -5,7 +5,7 @@
 
 // General style
 $font-family-sans-serif:  $base-font;
-$body-bg:                 white;
+$body-bg:                 $white;
 $font-size-base:          $base-size;
 $line-height-base:        $base-height;
 $headings-font-family:    $header-font;
@@ -14,10 +14,17 @@ $headings-font-family:    $header-font;
 // => http://getbootstrap.com/customize/#colors
 $gray-base:       $gray;
 $brand-primary:   $blue;
-$brand-success:   $green;
+$brand-success:   $aqua;
 $brand-info:      $yellow;
-$brand-danger:    $red;
-$brand-warning:   $orange;
+$brand-danger:    $yellow;
+$brand-warning:   $yellow;
+
+// $gray-base:       $gray;
+// $brand-primary:   $blue;
+// $brand-success:   $green;
+// $brand-info:      $yellow;
+// $brand-danger:    $red;
+// $brand-warning:   $orange;
 
 // Buttons / inputs radius
 $border-radius-base:  2px;
