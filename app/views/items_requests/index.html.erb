@@ -1,0 +1,22 @@
+<div class="container">
+
+  <h2>
+    Register Items
+  </h2>
+
+  <%= simple_form_for [@user, @request, @items_request] do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :item, required: true, autofocus: true %>
+    <%= f.input :quantity, required: true, autofocus: true %>
+    <%= f.input :status, required: true, autofocus: true %>
+    <!-- ToDo Add Map Functin and get latitude and longitude Here -->
+    <!-- ToDo Enable to select evacuation_point from Map-->
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Register", {class: "btn btn-warning"}%>
+  </div>
+  <% end %>
+
+</div>

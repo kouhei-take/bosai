@@ -23,7 +23,7 @@ class RequestsController < ApplicationController
     @request = Request.new(strong_params_request)
     @request.user = current_user
     if @request.save
-      redirect_to new_user_request_items_request_path
+      redirect_to user_request_items_requests_path(current_user.id, @request.id)
     end
   end
 
