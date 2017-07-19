@@ -1,3 +1,3 @@
 class Item < ApplicationRecord
-  has_many :items_requests
+  belongs_to :items_requests
 end
