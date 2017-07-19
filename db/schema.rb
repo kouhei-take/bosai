@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20170718112455) do
 
   create_table "requests", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "type"
+    t.string   "category"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"

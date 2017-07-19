@@ -16,7 +16,6 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(strong_params_request)
-
   end
 
   def update
@@ -30,5 +29,5 @@ class RequestsController < ApplicationController
   def strong_params_request
     params.require(:request).permit(:name, :email)
   end
-  
+
 end
