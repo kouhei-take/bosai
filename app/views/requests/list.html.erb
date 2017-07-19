@@ -1,4 +1,177 @@
-<div class="container">
-  <h1>Requests#list</h1>
-  <p>This is a page for Big Map</p>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Custom Markers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body, #wrapper {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+      }
+
+    #wrapper { position: relative; }
+    #over_map { position: absolute; width: 275px; height: 300px; top: 50px; left: 20px; z-index: 99; background-color: white; border-radius: 2px;
+  box-shadow: 1px 1px 2px #B3B3B3; overflow:scroll;}
+    #search { position: absolute; width: 300px; height: 50px; top: 50px; left: 400px; z-index: 99; background-color: white; border-radius: 2px;
+  box-shadow: 1px 1px 2px #B3B3B3;}
+    #results { position: absolute; width: 275px; height: 300px; top: 50px; right: 20px; z-index: 99; background-color: white; border-radius: 2px;
+  box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll;}
+
+
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="map"></div>
+
+      <div id="over_map">Filter</div>
+      <div id="search">Search</div>
+      <div id="results">Results</div>
+
+    </div>
+    <script>
+      var map;
+      function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: new google.maps.LatLng(-33.91722, 151.23064),
+          mapTypeId: 'roadmap'
+        });
+
+        // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        var fireImage = {
+          url: 'fire_image.png',
+          scaledSize: new google.maps.Size(30, 30),
+        }
+
+         var riceImage = {
+          url: 'rice_image.png',
+          scaledSize: new google.maps.Size(40, 40),
+        }
+
+          var medicalImage = {
+          url: 'medical_image.png',
+          scaledSize: new google.maps.Size(30, 30),
+        }
+
+        var icons = {
+          fire: {
+            icon: fireImage
+          },
+          supplies: {
+            icon: riceImage
+          },
+
+          medical: {
+            icon: medicalImage
+          }
+
+          // library: {
+          //   icon: iconBase + 'info-i_maps.png'
+          // }
+        };
+
+        var requests = [
+          {
+            position: new google.maps.LatLng(-33.91721, 151.22630),
+            category: 'supplies', number: 1
+          }, {
+            position: new google.maps.LatLng(-33.91539, 151.22820),
+            category: 'supplies', number: 2
+          }, {
+            position: new google.maps.LatLng(-33.91747, 151.22912),
+            category: 'supplies', number: 3
+          }, {
+            position: new google.maps.LatLng(-33.91910, 151.22907),
+            category: 'supplies', number: 4
+          }, {
+            position: new google.maps.LatLng(-33.91725, 151.23011),
+            category: 'supplies', number: 5
+          }, {
+            position: new google.maps.LatLng(-33.91872, 151.23089),
+            category: 'supplies', number: 6
+          }, {
+            position: new google.maps.LatLng(-33.91784, 151.23094),
+            category: 'supplies', number: 7
+          }, {
+            position: new google.maps.LatLng(-33.91682, 151.23149),
+            category: 'supplies', number: 8
+          }, {
+            position: new google.maps.LatLng(-33.91790, 151.23463),
+            category: 'supplies', number: 9
+          }, {
+            position: new google.maps.LatLng(-33.91666, 151.23468),
+            category: 'supplies', number: 10
+          }, {
+            position: new google.maps.LatLng(-33.916988, 151.233640),
+            category: 'supplies', number: 11
+          }, {
+            position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+            category: 'fire', number: 1
+          }, {
+            position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
+            category: 'fire', number: 2
+          }, {
+            position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
+            category: 'fire', number: 3
+          }, {
+            position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
+            category: 'fire', number: 4
+          }, {
+            position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
+            category: 'fire', number: 5
+          }, {
+            position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
+            category: 'medical', number: 1
+          }, {
+            position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
+            category: 'medical', number: 2
+          }, {
+            position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
+            category: 'medical', number: 55
+          }
+        ];
+
+        // Create markers.
+
+      function createMarker(requests) {
+        var marker = new google.maps.Marker({
+                    position: requests[i].position,
+                    icon: icons[requests[i].category].icon,
+                    map: map,
+                    number: requests[i].number
+
+
+                  });
+        google.maps.event.addListener(marker,'click', function(){
+
+                  console.log(marker.number);
+                  });
+        return marker;
+
+      }
+      // end of createMarker
+
+      for (i = 0; i < requests.length; i++) {
+        createMarker(requests);
+      }
+      // end of for loop
+
+    }
+    // end of init map
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdAENPASQbh4Xq5pFHgYBLEEp2-p7UtCU&callback=initMap">
+    </script>
+  </body>
+</html>
