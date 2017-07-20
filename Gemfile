@@ -19,6 +19,7 @@ gem 'uglifier'
 gem 'geocoder'
 gem "coffee-rails"
 gem "gmaps4rails"
+gem 'markerclustererplus-rails'
 
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"
