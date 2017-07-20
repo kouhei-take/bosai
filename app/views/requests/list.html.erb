@@ -51,7 +51,7 @@
 
       function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 18,
+          zoom: 15,
           center: new google.maps.LatLng(<%= @requests.first.latitude %>, <%= @requests.first.longitude %>),
           mapTypeId: 'roadmap'
         });
