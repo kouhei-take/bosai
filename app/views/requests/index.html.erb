@@ -38,6 +38,18 @@
        -->    </table>
           <% end %>
 
+  <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn-lg btn-primary btn-text" %>
+
+    <hr>
+
+  <h2>Provide Help</h2>
+    <form action="/requests/list" class="navbar-wagon-search pull-left">
+      <input type="text" name="area" class="navbar-wagon-search-input" placeholder="Search Area">
+      <button type="submit" class="navbar-wagon-search-btn">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+
 
         <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn btn-warning" %>
       </div>
