@@ -3,7 +3,7 @@
 <!-- URGENT MESSAGE BAR -->
 <div class="row urgent text-center">
   <div class="col-xs-12 col-sm-12">
-    <p>some urgent message.some urgent message.some urgent message.</p>
+    <h4>Japan earthquake: Powerful new tremor in Kumamoto ></h4>
   </div>
 </div>
 
@@ -21,8 +21,8 @@
 <!-- BANNER JUMBOTRON -->
 <div class="banner jumbotron">
   <div class="container banner-content">
-    <h1>Disaster Relief</h1>
-    <p>Join the team and help solve World's biggest disaster threat.</p>
+    <h1>Project 'Bo Sai'</h1>
+    <p>Instant disaster relief infrastructure any where in the world.</p>
      <% if user_signed_in? == false %>
      <%= link_to 'Sign Up', new_user_registration_path, class: "btn-lg btn-warning btn-text" %>
      <% end %>
@@ -33,10 +33,11 @@
 <div class="container text-center padded features">
   <div class="row">
     <div class="col-xs-12 col-sm-12 value_prop">
-      <h2>We respond to an emergency every 8 minutes</h2>
-      <h3>
-      No one else does this: not the government, not other charities. From small house fires to multi-state natural disasters, the American Red Cross goes wherever we’re needed, so people can have clean water, safe shelter and hot meals when they need them most.
-      </h3>
+      <h2>Web-based communication and logistic solution at a fraction of the cost of a tailor made system.</h2>
+      <br />
+      <h4>
+      We solve the inefficiency in the distribution of relief supplies and aid in the aftermath of catastrophic disasters, leading to severe "secondary disasters."
+      </h4>
     </div>
   </div>
 </div>
@@ -46,14 +47,17 @@
   <div class="container text-center padded features sign_up">
     <div class="row">
       <div class="col-xs-12 col-sm-6">
-        <%#= link_to image_tag("get_help.png"), new_user_request_path %>
-        <%= image_tag "get_help.png" %>
+        <% if user_signed_in? == false %>
+          <%= image_tag "get_help.png" %>
+        <% else %>
+          <%= link_to image_tag("get_help.png"), new_user_request_path(current_user.id) %>
+        <% end %>
         <h2>Get Help</h2>
         <p>You are not alone! The thousands of staff and volunteers of the Red Cross are here for you with emergency aid when you need it most, and also advice and assistance to help you recover from a disaster or become better prepared to face one in the future.</p>
       </div>
       <div class="col-xs-12 col-sm-6">
-        <%#= link_to image_tag("provide_help.png"), new_user_request_path %>
-        <%= image_tag "provide_help.png" %>
+        <%= link_to image_tag("provide_help.png"), requests_list_path %>
+        <%#= image_tag "provide_help.png" %>
         <h2>Provide Help</h2>
         <p>Whether helping one displaced family or thousands, providing care and comfort to an ill or injured service member or veteran, or teaching others how to respond in emergencies, it’s through the efforts of ordinary people that we can do extraordinary things. </p>
       </div>
