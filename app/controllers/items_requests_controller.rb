@@ -27,6 +27,6 @@ class ItemsRequestsController < ApplicationController
   end
 
   def strong_params_items_request
-    params.require(:items_request).permit(:item_id, :quantity, :status, :request)
+    params.require(:items_request).permit(:item_id, :quantity, :status, :request, :address)
   end
 end
