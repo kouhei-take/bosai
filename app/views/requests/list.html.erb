@@ -21,11 +21,14 @@
 
         #wrapper { position: relative; }
         #over_map { position: absolute; width: 275px; height: 300px; top: 50px; left: 20px; z-index: 99; background-color: white; border-radius: 2px;
-          box-shadow: 1px 1px 2px #B3B3B3; overflow:scroll; color: black;}
-        #search { position: absolute; width: 300px; height: 50px; top: 50px; left: 400px; z-index: 99; background-color: white; border-radius: 2px;
-          box-shadow: 1px 1px 2px #B3B3B3; color: black;}
-        #results { position: absolute; width: 275px; height: 300px; top: 50px; right: 20px; z-index: 99; background-color: white; border-radius: 2px;
-          box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll; color: black;}
+          box-shadow: 1px 1px 2px #B3B3B3; overflow:scroll; color: black; padding: 10px;}
+        #search { position: absolute; width: 350px; height: 50px; top: 50px; left: 400px; z-index: 99; background-color: white; border-radius: 2px;
+          box-shadow: 1px 1px 2px #B3B3B3; color: black; padding: 10px;}
+        #results { position: absolute; width: 350px; height: 375px; top: 50px; right: 20px; z-index: 99; background-color: white; border-radius: 2px;
+          box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll; color: black; padding: 10px;}
+        .results-text {
+          font-style: bold;
+        }
 
 
     </style>
@@ -48,8 +51,8 @@
 
       function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 16,
-          center: new google.maps.LatLng(-33.91722, 151.23064),
+          zoom: 18,
+          center: new google.maps.LatLng(<%= @requests.first.latitude %>, <%= @requests.first.longitude %>),
           mapTypeId: 'roadmap'
         });
 
@@ -73,10 +76,14 @@
           fire: {
             icon: fireImage
           },
-          supplies: {
+          relief: {
             icon: riceImage
           },
           medical: {
+            icon: medicalImage
+          },
+
+          rescue: {
             icon: medicalImage
           }
           // library: {
@@ -84,55 +91,67 @@
           // }
         };
 
-        console.log('<%= "hello" %>');
+        console.log(<%= @requests.first.id %>);
+        console.log('<%= @requests.last.category %>');
 
-        var requests = [
-          {
-            position: new google.maps.LatLng(-33.91721, 151.22630),
-            category: 'supplies', id: 11, name: "name1"
-          }, {
-            position: new google.maps.LatLng(-33.91539, 151.22820),
-            category: 'supplies', id: 2, name: "name2"
-          }, {
-            position: new google.maps.LatLng(-33.91747, 151.22912),
-            category: 'supplies', id: 3, name: "name3"
-          }, {
-            position: new google.maps.LatLng(-33.91910, 151.22907),
-            category: 'supplies', id: 4, name: "name4"
-          }, {
-            position: new google.maps.LatLng(-33.91725, 151.23011),
-            category: 'supplies', id: 5, name: "name5"
-          }, {
-            position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
-            category: 'fire', id: 1, name: "name1"
-          }, {
-            position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
-            category: 'fire', id: 2, name: "name2"
-          }, {
-            position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
-            category: 'fire', id: 3, name: "name3"
-          }, {
-            position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
-            category: 'fire', id: 4, name: "name4"
-          }, {
-            position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
-            category: 'fire', id: 5, name: "name5"
-          }, {
-            position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
-            category: 'medical', id: 1, name: "name6"
-          }, {
-            position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
-            category: 'medical', id: 2, name: "name7"
-          }, {
-            position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
-            category: 'medical', id: 33, name: "name8"
-          }
+
+
+      var requests = [
+        <% @requests.each do |request| %>
+      {
+        position: new google.maps.LatLng(<%= request.latitude %>, <%= request.longitude %>),
+        category: '<%= request.category %>', id: <%= request.id %>, user_id: <%= request.user_id %>, address: '<%= request.address %>', priority: '<%= request.priority %>', status: '<%= request.status %>', created_at: '<%= request.created_at %>', updated_at: '<%= request.updated_at %>'
+      },
+        <% end %>
         ];
+
+        // var requests = [
+        //   {
+        //     position: new google.maps.LatLng(-33.91721, 151.22630),
+        //     category: 'supplies', id: 11, name: "name1"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91539, 151.22820),
+        //     category: 'supplies', id: 2, name: "name2"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91747, 151.22912),
+        //     category: 'supplies', id: 3, name: "name3"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91910, 151.22907),
+        //     category: 'supplies', id: 4, name: "name4"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91725, 151.23011),
+        //     category: 'supplies', id: 5, name: "name5"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+        //     category: 'fire', id: 1, name: "name1"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
+        //     category: 'fire', id: 2, name: "name2"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
+        //     category: 'fire', id: 3, name: "name3"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
+        //     category: 'fire', id: 4, name: "name4"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
+        //     category: 'fire', id: 5, name: "name5"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
+        //     category: 'medical', id: 1, name: "name6"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
+        //     category: 'medical', id: 2, name: "name7"
+        //   }, {
+        //     position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
+        //     category: 'medical', id: 33, name: "name8"
+        //   }
+        // ];
         // TODO define results as an array of hashes of results
 
         // Create markers.
 
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // for clustering
 
 
@@ -142,7 +161,12 @@
             icon: icons[requests[index].category].icon,
             map: map,
             id: requests[index].id,
-            name: requests[index].name
+            category: requests[index].category,
+            address: requests[index].address,
+            priority: requests[index].priority,
+            status: requests[index].status,
+            created_at: requests[index].created_at,
+            updated_at: requests[index].updated_at,
             // label: labels[i % labels.length]
           });
 
@@ -152,7 +176,16 @@
             //   content: contentString
             // });
             // infowindow.open(map, marker);
-            $('#results').html('<p>' + 'result id:  ' + marker.id + '</p>' + '<p>' + 'name:  ' + marker.name + '</p>' )
+            $('#results').html('<p class="results-text">' + 'ID:  ' + marker.id + '</p>' + '<p class="results-text">' + 'Category:  ' + marker.category + '</p>'
+              + '<p class="results-text">' + 'Address:  ' + marker.address + '</p>'
+              + '<p class="results-text">' + 'Priority:  ' + marker.priority + '</p>'
+              + '<p class="results-text">' + 'Status:  ' + marker.status + '</p>'
+              + '<p class="results-text">' + 'Created at:  ' + marker.created_at + '</p>'
+              + '<p class="results-text">' + 'Updated at:  ' + marker.updated_at + '</p>'
+
+
+
+              )
             // ****put in erb to assign marker.id to ruby object
              $('#results').toggle()
              console.log(marker.id);
@@ -161,16 +194,17 @@
           return marker;
         }
         // end of createMarker
-
+var markers = []
         for (i = 0; i < requests.length; i++) {
-          var markers = []
-          createMarker(i);
+
+
+          markers.push(createMarker(i));
         }
         // end of for loop
 
-         // var markerCluster = new MarkerClusterer(map, markers,
-         //      {imagePath: 'https://developers.google.com/maps/documentation/javascript/    examples/markerclusterer/m'});
-        // }
+         var markerCluster = new MarkerClusterer(map, markers,
+              {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
 
         // this is for clustering.. need to load marketclusterer
 
@@ -198,7 +232,8 @@
       });
 
     </script>
-
+      <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+      </script>
   </body>
 </html>
 
