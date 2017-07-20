@@ -76,7 +76,7 @@ request = Request.new(user_id: 6, category: "medical", address: "Bldg opposite M
 request.save
 request = Request.new(user_id: 7, category: "relief", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
 request.save
-request = Request.new(user_id: 8, category: "relief", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
+request = Request.new(user_id: 8, category: "relief", address: "Near Meguro station, opposite JR exit", latitude: 40.748555, longitude: 35.633444, status: "open", priority: "high")
 request.save
 
 

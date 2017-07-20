@@ -8,23 +8,24 @@
     <tr><th>Name</th> <td><%= current_user.first_name + " " + current_user.last_name %> </td></tr>
     <tr><th>Email</th> <td><%= current_user.email  %></td></tr>
     <tr><th>Address</th> <td><%= current_user.address  %></td></tr>
-    <tr><th>Phone_number</th> <td><%= current_user.phone_number %></td></tr>
-    <tr><th>Organization</th> <td><%= current_user.organization %></td></tr>
+    <tr><th>Phone Number</th> <td><%= current_user.phone_number %></td></tr>
+    <tr><th>Organization</th> <td><%= current_user.organization.name %></td></tr>
     <tr><th>Evacuation Point</th> <td><%= current_user.evacuation_point %></td></tr>
   </table>
 
   <hr>
 
-  <h2>List of Your Requests</h2>
+  <h2>Your Current Requests</h2>
     <H4>Total Number: <%= @requests.count %></H3>
     <% @requests.each do |r| %>
     <table class="table table-striped table-responsive">
-        <tr><th>Priority</th> <td>< <%= r.priority  %></td></tr>
-        <tr><th>Status</th> <td>< <%= r.status  %></td></tr>
-        <tr><th>Category</th> <td>< <%= r.category  %></td></tr>
-        <tr><th>Created_at</th> <td>< <%= r.created_at %></td></tr>
-        <tr><th>Updated_at</th> <td>< <%= r.updated_at %></td></tr>
-    </table>
+        <tr><th>Category</th> <td> <%= r.category  %></td></tr>
+        <tr><th>Priority</th> <td> <%= r.priority  %></td></tr>
+        <tr><th>Status</th> <td> <%= r.status  %></td></tr>
+        <tr><th>Items</th> <td> <%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td></tr>
+<!--         <tr><th>Created_at</th> <td> <%= r.created_at %></td></tr>
+        <tr><th>Updated_at</th> <td> <%= r.updated_at %></td></tr>
+ -->    </table>
     <% end %>
 
   <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn btn-warning" %>
