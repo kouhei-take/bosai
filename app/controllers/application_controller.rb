@@ -12,8 +12,15 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:username])
   end
 
-  def after_sign_in_path_for(resource)
-    user_requests_path(resource)
-  end
+  private
+    # override the devise helper to store the current location so we can
+    # redirect to it after loggin in or out. This override makes signing in
+    # and signing up work automatically.
+    def store_current_location
+      store_location_for(:user, request.url)
+    end
 
+    def after_sign_out_path_for(resource)
+      request.referrer || root_path
+    end
 end
