@@ -13,7 +13,7 @@
 .urgent {
   font-size: 16px;
   color: $black;
-  background-color: #EEFC57;
+  background-color: $yellow;
 }
 
 .banner {
@@ -41,12 +41,12 @@
 }
 
 .jumbotron {
-  background:url(bosai_banner.jpg) center no-repeat;
+  background:url("<%= image_path 'bosai_banner.jpg' %>") center no-repeat;
   background-size: cover;
 }
 
 .value_prop {
-  font-size: 18px;
+  //font-size: 18px;
   color: $black;
   background-color: $white;
 }
@@ -65,6 +65,10 @@
 
 body {
   color: $black;
+}
+
+.alert-success {
+  background-color: $blue;
 }
 
 
