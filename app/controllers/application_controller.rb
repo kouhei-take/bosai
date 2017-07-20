@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(_resource)
-    session[:previous_url] || root_path
+  def after_sign_in_path_for(resource)
+    user_requests_path(current_user.id) ##session[:previous_url] || 
   end
 end

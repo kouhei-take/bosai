@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :requests
   belongs_to :evacuation_point, optional: true ##############
 
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+
   ##########################################################################################
   def self.find_for_facebook_oauth(auth)
     user_params = auth.slice(:provider, :uid)
