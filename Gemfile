@@ -38,3 +38,7 @@ end
 group :development do
   gem "rails-erd"
 end
+
+gem 'omniauth-facebook'
+gem "geocoder"
+gem 'omniauth-twitter'
