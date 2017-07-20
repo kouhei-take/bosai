@@ -7,7 +7,7 @@ class RequestsController < ApplicationController
   end
 
   def list
-    @request = Request.all
+    @requests = Request.all
   end
 
   def edit
