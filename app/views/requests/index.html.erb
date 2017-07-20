@@ -9,7 +9,7 @@
           <tr><th>Email</th> <td><%= current_user.email  %></td></tr>
           <tr><th>Address</th> <td><%= current_user.address  %></td></tr>
           <tr><th>Phone Number</th> <td><%= current_user.phone_number %></td></tr>
-          <!-- <tr><th>Organization</th> <td><%#= current_user.organization.name %></td></tr> -->
+          <tr><th>Organization</th> <td><%= current_user.organization.name %></td></tr>
           <tr><th>Evacuation Point</th> <td><%= current_user.evacuation_point %></td></tr>
         </table>
     </div>
@@ -83,7 +83,6 @@ $(document).ready(function () {
       {
         "lat": "<%= current_user.latitude %>",
         "lng": "<%= current_user.longitude %>",
-        "infowindow": "<h1>Aix - Marseille</h1><p><img src='https://d1gofzrmx0fcbg.cloudfront.net/production/cities/city_pictures/000/000/008/thumbnail/marseille.jpg?1445520529' height='200'></p>"
       }
     ]);
     handler.bounds.extendWith(markers);

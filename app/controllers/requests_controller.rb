@@ -7,7 +7,7 @@ class RequestsController < ApplicationController
   end
 
   def list
-    @requests = Request.all
+    @requests = Request.where.not(latitude: nil, longitude:nil)
   end
 
   def edit
