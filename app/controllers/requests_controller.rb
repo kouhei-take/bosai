@@ -7,7 +7,14 @@ class RequestsController < ApplicationController
   end
 
   def list
-    @requests = Request.all
+    @requests = Request.where.not(latitude: nil, longitude: nil)
+
+    @hash = Gmaps4rails.build_markers(@requests) do |request, marker|
+      marker.lat request.latitude
+      marker.lng request.longitude
+      marker.picture ActionController::Base.helpers.image_url('fire_image.png')
+      # marker.infowindow render_to_string(partial: "/requests/map_box", locals: { request: request })
+     end
   end
 
   def edit

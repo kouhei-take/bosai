@@ -25,11 +25,22 @@
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Sign up" %>
+        <%= f.button :submit, "Sign up", {class: "btn-lg btn-primary btn-text" } %>
       </div>
       <% end %>
 
-      <%= render "devise/shared/links" %>
+      <div class="pull-right">
+        <%= render "devise/shared/links" %>
+      </div>
+
+      <hr>
+
     </div>
   </div>
 </div>
+
+<hr>
+
+<%= content_for(:after_js) do %>
+  <script src="https://maps.googleapis.com/maps/api/js?language=en&amp;libraries=places&amp;key=#{ENV['GOOGLE_API_BROWSER_KEY']}"></script>
+<% end %>

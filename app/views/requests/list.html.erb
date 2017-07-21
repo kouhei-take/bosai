@@ -1,40 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Custom Markers</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Makes the sample page fill the window. */
-      html, body, #wrapper {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        position: relative;
-      }
-
-        #wrapper { position: relative; }
-        #over_map { position: absolute; width: 275px; height: 300px; top: 50px; left: 20px; z-index: 99; background-color: white; border-radius: 2px;
-          box-shadow: 1px 1px 2px #B3B3B3; overflow:scroll; color: black; padding: 10px;}
-        #search { position: absolute; width: 350px; height: 50px; top: 50px; left: 400px; z-index: 99; background-color: white; border-radius: 2px;
-          box-shadow: 1px 1px 2px #B3B3B3; color: black; padding: 10px;}
-        #results { position: absolute; width: 350px; height: 375px; top: 50px; right: 20px; z-index: 99; background-color: white; border-radius: 2px;
-          box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll; color: black; padding: 10px;}
-        .results-text {
-          font-style: bold;
-        }
-
-
-    </style>
-  </head>
-
-  <body>
     <div id="wrapper">
 
       <div id="map"></div>
@@ -42,204 +5,118 @@
       <div id="search">Search</div>
       <div id="results">Request</div>
       <!-- put in link to the next page -->
-
     </div>
     <!-- end of wrapper -->
 
-    <script>
-      var map;
-
-      function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-
-          zoom: 15,
-          center: new google.maps.LatLng(<%= @requests.first.latitude %>, <%= @requests.first.longitude %>),
-          mapTypeId: 'roadmap'
-        });
-
-        // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-        var fireImage = {
-          url: '<%= asset_path('fire_image.png') %>',
-          scaledSize: new google.maps.Size(30, 30),
-        }
-
-        var riceImage = {
-          url: '<%= asset_path('rice_image.png') %>',
-          scaledSize: new google.maps.Size(40, 40),
-        }
-
-        var medicalImage = {
-          url: '<%= asset_path('medical_image.png') %>',
-          scaledSize: new google.maps.Size(30, 30),
-        }
-
-        var icons = {
-          fire: {
-            icon: fireImage
-          },
-          relief: {
-            icon: riceImage
-          },
-          medical: {
-            icon: medicalImage
-          },
-
-          rescue: {
-            icon: medicalImage
+    <% content_for(:after_js) do %>
+      <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 18,
+            center: new google.maps.LatLng(<%= @requests.first.latitude %>, <%= @requests.first.longitude %>),
+            mapTypeId: 'roadmap'
+          });
+          // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+          var fireImage = {
+            url: '<%= asset_path('fire_image.png') %>',
+            scaledSize: new google.maps.Size(30, 30),
           }
-          // library: {
-          //   icon: iconBase + 'info-i_maps.png'
-          // }
-        };
+          var riceImage = {
+            url: '<%= asset_path('rice_image.png') %>',
+            scaledSize: new google.maps.Size(40, 40),
+          }
+          var medicalImage = {
+            url: '<%= asset_path('medical_image.png') %>',
+            scaledSize: new google.maps.Size(30, 30),
+          }
+          var icons = {
+            fire: {
+              icon: fireImage
+            },
+            relief: {
+              icon: riceImage
+            },
+            medical: {
+              icon: medicalImage
+            },
+            rescue: {
+              icon: medicalImage
+            }
+            // library: {
+            //   icon: iconBase + 'info-i_maps.png'
+            // }
+          };
 
-        console.log(<%= @requests.first.id %>);
-        console.log('<%= @requests.last.category %>');
-
-
-
-      var requests = [
-        <% @requests.each do |request| %>
-      {
-        position: new google.maps.LatLng(<%= request.latitude %>, <%= request.longitude %>),
-        category: '<%= request.category %>', id: <%= request.id %>, user_id: <%= request.user_id %>, address: '<%= request.address %>', priority: '<%= request.priority %>', status: '<%= request.status %>', created_at: '<%= request.created_at %>', updated_at: '<%= request.updated_at %>'
-      },
-        <% end %>
-        ];
-
-        // var requests = [
-        //   {
-        //     position: new google.maps.LatLng(-33.91721, 151.22630),
-        //     category: 'supplies', id: 11, name: "name1"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91539, 151.22820),
-        //     category: 'supplies', id: 2, name: "name2"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91747, 151.22912),
-        //     category: 'supplies', id: 3, name: "name3"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91910, 151.22907),
-        //     category: 'supplies', id: 4, name: "name4"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91725, 151.23011),
-        //     category: 'supplies', id: 5, name: "name5"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
-        //     category: 'fire', id: 1, name: "name1"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
-        //     category: 'fire', id: 2, name: "name2"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
-        //     category: 'fire', id: 3, name: "name3"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
-        //     category: 'fire', id: 4, name: "name4"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
-        //     category: 'fire', id: 5, name: "name5"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
-        //     category: 'medical', id: 1, name: "name6"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
-        //     category: 'medical', id: 2, name: "name7"
-        //   }, {
-        //     position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
-        //     category: 'medical', id: 33, name: "name8"
-        //   }
-        // ];
-        // TODO define results as an array of hashes of results
-
-        // Create markers.
-
-        // var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        // for clustering
+        var requests = [
+          <% @requests.each do |request| %>
+        {
+          position: new google.maps.LatLng(<%= request.latitude %>, <%= request.longitude %>),
+          category: '<%= request.category %>', id: <%= request.id %>, user_id: <%= request.user_id %>, address: '<%= request.address %>', priority: '<%= request.priority %>', status: '<%= request.status %>', created_at: '<%= request.created_at %>', updated_at: '<%= request.updated_at %>'
+        },
+          <% end %>
+          ];
 
 
-        function createMarker(index) {
-          var marker = new google.maps.Marker({
-            position: requests[index].position,
-            icon: icons[requests[index].category].icon,
-            map: map,
-            id: requests[index].id,
-            category: requests[index].category,
-            address: requests[index].address,
-            priority: requests[index].priority,
-            status: requests[index].status,
-            created_at: requests[index].created_at,
-            updated_at: requests[index].updated_at,
-            // label: labels[i % labels.length]
-          });
-
-          marker.addListener('click', function(){
-            // var contentString = marker.id.toString();
-            // var infowindow = new google.maps.InfoWindow({
-            //   content: contentString
-            // });
-            // infowindow.open(map, marker);
-            $('#results').html('<p class="results-text">' + 'ID:  ' + marker.id + '</p>' + '<p class="results-text">' + 'Category:  ' + marker.category + '</p>'
-              + '<p class="results-text">' + 'Address:  ' + marker.address + '</p>'
-              + '<p class="results-text">' + 'Priority:  ' + marker.priority + '</p>'
-              + '<p class="results-text">' + 'Status:  ' + marker.status + '</p>'
-              + '<p class="results-text">' + 'Created at:  ' + marker.created_at + '</p>'
-              + '<p class="results-text">' + 'Updated at:  ' + marker.updated_at + '</p>'
-
-
-
-              )
-            // ****put in erb to assign marker.id to ruby object
-             $('#results').toggle()
-             console.log(marker.id);
-          });
-
-          return marker;
+          function createMarker(index) {
+            var marker = new google.maps.Marker({
+              position: requests[index].position,
+              icon: icons[requests[index].category].icon,
+              map: map,
+              id: requests[index].id,
+              category: requests[index].category,
+              address: requests[index].address,
+              priority: requests[index].priority,
+              status: requests[index].status,
+              created_at: requests[index].created_at,
+              updated_at: requests[index].updated_at,
+              // label: labels[i % labels.length]
+            });
+            marker.addListener('click', function(){
+              // var contentString = marker.id.toString();
+              // var infowindow = new google.maps.InfoWindow({
+              //   content: contentString
+              // });
+              // infowindow.open(map, marker);
+              $('#results').html('<p class="results-text">' + 'ID:  ' + marker.id + '</p>' + '<p class="results-text">' + 'Category:  ' + marker.category + '</p>'
+                + '<p class="results-text">' + 'Address:  ' + marker.address + '</p>'
+                + '<p class="results-text">' + 'Priority:  ' + marker.priority + '</p>'
+                + '<p class="results-text">' + 'Status:  ' + marker.status + '</p>'
+                + '<p class="results-text">' + 'Created at:  ' + marker.created_at + '</p>'
+                + '<p class="results-text">' + 'Updated at:  ' + marker.updated_at + '</p>'
+                )
+              // ****put in erb to assign marker.id to ruby object
+               $('#results').toggle()
+               console.log(marker.id);
+            });
+            return marker;
+          }
+          // end of createMarker
+  var markers = []
+          for (i = 0; i < requests.length; i++) {
+            markers.push(createMarker(i));
+          }
+          // end of for loop
+           var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/ms'});
+          // this is for clustering.. need to load marketclusterer
         }
-        // end of createMarker
-var markers = []
-        for (i = 0; i < requests.length; i++) {
-
-
-          markers.push(createMarker(i));
-        }
-        // end of for loop
-
-         var markerCluster = new MarkerClusterer(map, markers,
-              {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-
-        // this is for clustering.. need to load marketclusterer
-
-      }
-      // end of init map
-
-    </script>
-    <!-- end of map script -->
-
-    <!-- <script async defer
-
-      src="https://maps.googleapis.com/maps/api/js?key=[key]&callback=initMap">
-
-    </script> -->
-
-    <%#= javascript_include_tag "https://maps.google.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
-
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
-     </script>
-
-    <script>
-
-      $(document).ready(function() {
-        $("#results").hide();
-      });
-
-    </script>
-      <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+        // end of init map
       </script>
-  </body>
-</html>
+      <!-- end of map script -->
 
-<!-- gem 'markerclustererplus-rails'
-javascript file:
+      <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?language=en&key=#{ENV['GOOGLE_API_BROWSER_KEY']}&callback=initMap" %>
+      <!-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=[key]&callback=initMap">
+      </script> -->
 
-//= require markerclusterer
- need for clustering-->
+      <%#= javascript_include_tag "https://maps.google.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+
+      <script>
+        $(document).ready(function() {
+          $("#results").hide();
+        });
+      </script>
+
+    </script>v
+    <% end %>
