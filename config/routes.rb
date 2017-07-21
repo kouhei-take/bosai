@@ -11,15 +11,13 @@ Rails.application.routes.draw do
   # get 'requests/update'
   # get 'requests/destroy'
   get 'requests/list'
-
-  get 'pages/home'
   root to: 'pages#home'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :users do
+  resources :users, only: [] do
     resources :requests do
       resources :items_requests
     end
