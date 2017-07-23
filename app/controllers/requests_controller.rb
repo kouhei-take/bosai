@@ -1,6 +1,7 @@
 class RequestsController < ApplicationController
   def index
     @requests = Request.where(user: current_user)
+    @near_shelters = EvacuationPoint.near([current_user.latitude, current_user.longitude], 5)
   end
 
   def show
@@ -38,6 +39,10 @@ class RequestsController < ApplicationController
   end
 
   def destroy
+    @request = Request.find(params[:id])
+    @request.destroy
+    redirect_to user_requests_path(current_user)
+
   end
 
   private
