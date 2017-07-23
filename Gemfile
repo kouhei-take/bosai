@@ -41,5 +41,4 @@ group :development do
 end
 
 gem 'omniauth-facebook'
-gem "geocoder"
 gem 'omniauth-twitter'

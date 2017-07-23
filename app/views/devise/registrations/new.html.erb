@@ -43,5 +43,5 @@
 <hr>
 
 <%= content_for(:after_js) do %>
-  <script src="https://maps.googleapis.com/maps/api/js?language=en&libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"></script>
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?language=en&libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
 <% end %>
