@@ -5,6 +5,7 @@ class RequestsController < ApplicationController
   end
 
   def show
+    # @request = params[:data_value]
   end
 
   def list
