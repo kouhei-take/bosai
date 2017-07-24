@@ -1,12 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+# # This file should contain all the record creation needed to seed the database with its default values.
+# # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+# #
+# # Examples:
+# #
+# #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+# #   Character.create(name: 'Luke', movie: movies.first)
 #
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 puts 'seed start!'
+
 
 [
   "Old Foggies Home",
@@ -19,12 +20,39 @@ puts 'seed start!'
   puts Organization.find_or_create_by!(name: name)
 end
 
-# Organization.create!(name: "Old Foggies Home")
-# Organization.create!(name: "Funny Accents Forever")
-# Organization.create!(name: "Meguro Lawyers Asso")
-# Organization.create!(name: "Cool Frogs Anonymous")
-# Organization.create!(name: "Cobol-Programmers Anonymous")
-# Organization.create!(name: "Obnoxious Indians United")
+
+## From Here: Evacuation_points_load by Kouhei
+yml_file = YAML.load_file('db/final_format.yml')
+  ## Original Data: https://github.com/yutakikuchi/Data/tree/master/shelter/pref
+  ## I convered and reduced data to reduce processing time manually
+  ## And I used kakasi lib to get ro-ma ji name
+  ## To avoid API request to Google every time, I once run creation to get address from Google API, after that, saved the result in objects.yml
+  ## After that I reformated the file to make the last seed file simple.
+
+yml_file.each do |x|
+  eva = EvacuationPoint.new(name: x["name"], latitude: x["latitude"], longitude: x["longitude"], address: x["address"] )
+  eva.number_of_evacuees = rand(10..100)
+  eva.max_evacuees = rand(100..1000)
+  eva.save(validate: false) # avoid requesting Google API every time
+end
+### To Here: Evacuation_points_load by Kouhei
+
+
+org1 = Organization.new(name: "Old Foggies Home")
+org1.save
+org2 = Organization.new(name: "Funny Accents Forever")
+org2.save
+org3 = Organization.new(name: "Meguro Lawyers Asso")
+org3.save
+org4 = Organization.new(name: "Cool Frogs Anonymous")
+org4.save
+org5 = Organization.new(name: "Cobol-Programmers Anonymous")
+org5.save
+org6 = Organization.new(name: "Obnoxious Indians United")
+org6.save
+
+#Impact Hub Tokyo latitude, longitude35.6339419,139.7059374
+
 
 [
   {first_name: "takashi", last_name: "tamura", email: 'takashi@tamura.com', password: '123456', address: "2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.9353.0938", organization_id: 1},

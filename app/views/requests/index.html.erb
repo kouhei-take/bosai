@@ -1,6 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+    <div class="col-xs-12 col-sm-6">
+
+      <!-- rying go implement the function to get current location
+      <div><%#= button_tag(type: 'button', class: "currentLocation") do content_tag(:strong, 'Ask me!') %>
+      </div> -->
 
       <h2>Your Information</h2>
 
@@ -31,55 +35,70 @@
           <td><%= current_user.evacuation_point.nil? ? "Not belongs to Evacuation Point" : current_user.evacuation_point.name %></td>
         </tr>
       </table>
+      <br>
+
+      <%= link_to 'Edit Your Information', edit_user_registration_path, class: "btn-lg btn-primary btn-text pull-right"  %>
+
     </div>
 
-    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+    <div class="col-xs-12 col-sm-6">
       <h3>Map</h3>
-      <div id="map2" style="width:500px; height:400px;"></div>
+      <div id="map2" style="width:550px; height:400px;"></div>
     </div>
   </div>
 
   <hr style="border-top: 1px solid black;">
 
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+    <div class="col-xs-12 col-sm-6">
 
-      <h2>Your Current Requests</h2>
-      <H4>Total Number:
-        <%= @requests.count %></H3>
+      <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn-lg btn-primary btn-text pull-right" %>
+
+      <h2>Your Requests</h2>
+
+      <H3 class="text-center"><br>List (Total Number: <%= @requests.count %> )</H3>
+
+      <% i = 1 %>
       <% @requests.each do |r| %>
-      <table class="table table-striped table-responsive">
-        <tr>
-          <th>Category</th>
-          <td>
-            <%= r.category  %></td>
-        </tr>
-        <tr>
-          <th>Priority</th>
-          <td>
-            <%= r.priority  %></td>
-        </tr>
-        <tr>
-          <th>Status</th>
-          <td>
-            <%= r.status  %></td>
-        </tr>
-        <tr>
-          <th>Items</th>
-          <td>
-            <%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
-        </tr>
-        <!--         <tr><th>Created_at</th> <td> <%= r.created_at %></td></tr>
-                  <tr><th>Updated_at</th> <td> <%= r.updated_at %></td></tr>
-           -->
-      </table>
+        <div class="col-xs-6 col-sm-6">
+          <table class="table table-bordered table-responsive table-condensed">
+            <caption  class="text-info"><strong>No. <%= i %></strong>
+              <%= link_to 'Delete', user_request_path(current_user.id, r.id), data: { confirm: "Are you sure?" }, method: :delete, class: "text-warning pull-right" %>
+            </caption>
+            <tr class="info">
+              <th>Category</th>
+              <td>
+                <%= r.category  %></td>
+            </tr>
+            <tr class="danger">
+              <th>Priority</th>
+              <td>
+                <%= r.priority  %></td>
+            </tr>
+            <tr class="warning">
+              <th>Status</th>
+              <td>
+                <%= r.status  %></td>
+            </tr>
+            <tr class="success">
+              <th>Items</th>
+              <td>
+                <%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
+            </tr>
+            <!--         <tr><th>Created_at</th> <td> <%= r.created_at %></td></tr>
+                      <tr><th>Updated_at</th> <td> <%= r.updated_at %></td></tr>
+               -->
+
+          </table>
+
+        </div>
+        <% i += 1 %>
       <% end %>
 
-      <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn-primary btn-text" %>
 
     </div>
 
-    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+    <div class="col-xs-12 col-sm-6">
 
       <h2>Provide Help</h2>
       <form action="/requests/list" class="navbar-wagon-search pull-left">
@@ -98,25 +117,51 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer_compiled.js"></script> -->
-    <!-- <script src="https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js"></script> -->
-    <!-- <script src="https://cdn.rawgit.com/apneadiving/Google-Maps-for-Rails/master/js_compilation/gmaps_google.js"></script> -->
-
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer_compiled.js"></script> -->
+<!-- <script src="https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js"></script> -->
+<!-- <script src="https://cdn.rawgit.com/apneadiving/Google-Maps-for-Rails/master/js_compilation/gmaps_google.js"></script> -->
 
 <script type="text/javascript">
-   $(document).on('ready', function() {
-     var handler = Gmaps.build('Google', { markers: { clusterer: undefined }});
-     handler.buildMap({ internal: { id: 'map2' } }, function(){
-       markers = handler.addMarkers([
-         {
-           "lat": "<%= current_user.latitude %>",
-           "lng": "<%= current_user.longitude %>"
-         }
-       ]);
-       handler.bounds.extendWith(markers);
-       handler.fitMapToBounds();
-       handler.getMap().setZoom(18);
-     });
-   })
- </script>
+  $(document).on('ready', function () {
+    var handler = Gmaps.build('Google', {
+      markers: {
+        clusterer: undefined
+      }
+    });
+    handler.buildMap({
+      internal: {
+        id: 'map2'
+      }
+    }, function () {
+      markers = handler.addMarkers([
+        {
+          "lat": "<%= current_user.latitude %>",
+          "lng": "<%= current_user.longitude %>"
+        },
+        <% @near_shelters.each do |s|  %>
+        {
+          "lat": "<%= s.latitude %>",
+          "lng": "<%= s.longitude %>",
+          "picture": {
+            "url": "<%= asset_path('group-2.png') %>",
+            "width": 40,
+            "height": 40
+          },
+          "infowindow": '<%= link_to s.name, "https://www.google.com/maps/dir/?api=1&destination=#{s.latitude},#{s.longitude}&travelmode=walking",  {class: "h6 text-danger"} %><p><%= s.address %></p><p>Number_of_Evacuees: <%= s.number_of_evacuees %> / Max: <%= s.max_evacuees %></p>'
+        },
+        <% end %>
+      ]);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      handler.getMap().setCenter(new google.maps.LatLng("<%= current_user.latitude %>", "<%= current_user.longitude %>"));
+      //handler.map.centerOn("<%= current_user.latitude %>", "<%= current_user.longitude %>");
+      handler.getMap().setZoom(15);
+    });
+  })
+  // //////////////////////////////////////////////////////////// //////////////////////////////////////////////////////////// // $('.currentLocation').on 'click', -> if( navigator.geolocation ){   //Get Current Location
+  // navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options)   alert( "Successfully Got Current Location" ) ; } else{   alert( "Your browser does not support Geolocation." ) ; };
+  //
+  // options = enableHighAccuracy: true // // successGetPosition = (position) -> //   window.location.href = "/shops/searches?latitude=#{position.coords.latitude}&longitude=#{position.coords.longitude}" // // options = //   enableHighAccuracy: true //
+  // // failGetPosition = (error) -> //   switch error.code
+</script>
