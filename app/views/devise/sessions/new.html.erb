@@ -5,9 +5,9 @@
       <h2 class=text-center>
         <strong>Log in</strong>
       </h2>
-      <div class="row">
+      <div class="col-xs-8 col-xs-offset-2 col-sm-3 col-sm-offset-3">
         <%- if devise_mapping.omniauthable? %>
-        <div class="external-login col-xs-6 col-xs-offset-3">
+        <div class="external-login">
           <%= link_to omniauth_authorize_path(resource_name, :facebook), {class: "btn btn-block btn-social btn-facebook"} do %>
           <span class="fa fa-facebook"></span>
           <div class="text-center">Facebook Login</div>
@@ -17,7 +17,7 @@
 
           <%= link_to omniauth_authorize_path(resource_name, :twitter), {class: "btn btn-block btn-social btn-twitter"} do %>
           <span class="fa fa-twitter"></span>
-          <div class="text-centr">Twitter Login</div>
+          <div class="text-center">Twitter Login</div>
           <% end %>
         </div>
         <% end -%>
