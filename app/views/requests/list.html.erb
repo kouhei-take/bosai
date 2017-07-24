@@ -23,7 +23,7 @@
     <!-- end of wrapper -->
 
     <% content_for(:after_js) do %>
-      <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?language=en&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+      <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?language=en&key=#{ENV['GOOGLE_API_BROWSER_KEY']}&callback=initMap" %>
       <script>
         var markers = []
 
