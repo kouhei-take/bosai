@@ -7,13 +7,17 @@
 }
 
 .form-inputs input {
-  color: black;
+  //color: black;
 }
+
+.form-inputs a {
+ color: $blue;
+}
+
 
 .select-form option:first-child {
   color: $gray;
 }
-
 
 .form-inputs .form-control {
   color: black;
@@ -25,4 +29,29 @@
 
 .container-form-flex {
   padding-top: 25%;
+}
+
+.btn-sign {
+  background: $blue;
+  font-size: small;
+  color: white;
+  padding: 5px 10px;
+  border-radius:1px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sign:hover{
+  background: $green;
+  color: white;
+}
+
+
+.sign-up-btn-line a{
+  color: $blue;
+  font-weight: bold;
+}
+
+#forget-pw a {
+  font-weight: lighter;
+  color: black;
 }
