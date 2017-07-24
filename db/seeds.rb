@@ -10,12 +10,12 @@ puts 'seed start!'
 
 
 [
-  "Old Foggies Home",
-  "Funny Accents Forever",
-  "Meguro Lawyers Asso",
-  "Cool Frogs Anonymous",
-  "Cobol-Programmers Anonymous",
-  "Obnoxious Indians United",
+  "Meguro Citizens Walking Group",
+  "Funny Accents Meguro River",
+  "Meguro Lawyers Association",
+  "Tennis Players Meguro United",
+  "Naka Meguro Craft Beer Lovers",
+  "Association of Hen-na Gaijin, Meguro ku",
 ].each do |name|
   puts Organization.find_or_create_by!(name: name)
 end
@@ -36,20 +36,6 @@ yml_file.each do |x|
   eva.save(validate: false) # avoid requesting Google API every time
 end
 ### To Here: Evacuation_points_load by Kouhei
-
-
-org1 = Organization.new(name: "Old Foggies Home")
-org1.save
-org2 = Organization.new(name: "Funny Accents Forever")
-org2.save
-org3 = Organization.new(name: "Meguro Lawyers Asso")
-org3.save
-org4 = Organization.new(name: "Cool Frogs Anonymous")
-org4.save
-org5 = Organization.new(name: "Cobol-Programmers Anonymous")
-org5.save
-org6 = Organization.new(name: "Obnoxious Indians United")
-org6.save
 
 #Impact Hub Tokyo latitude, longitude35.6339419,139.7059374
 
