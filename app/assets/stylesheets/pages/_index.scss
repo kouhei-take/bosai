@@ -10,13 +10,15 @@ html, body, #wrapper {
   padding: 0;
   position: relative;
 }
-  #wrapper { position: relative; }
-  #over_map { position: absolute; width: 275px; height: 300px; top: 50px; left: 20px; z-index: 99; background-color: white; border-radius: 2px;
-    box-shadow: 1px 1px 2px #B3B3B3; overflow:scroll; color: black; padding: 10px;}
-  #search { position: absolute; width: 350px; height: 50px; top: 50px; left: 400px; z-index: 99; background-color: white; border-radius: 2px;
-    box-shadow: 1px 1px 2px #B3B3B3; color: black; padding: 10px;}
-  #results { position: absolute; width: 350px; height: 375px; top: 50px; right: 20px; z-index: 99; background-color: white; border-radius: 2px;
-    box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll; color: black; padding: 10px;}
-  .results-text {
-    font-style: bold;
+
+#wrapper { position: relative; }
+#filter { position: absolute; width: 275px; height: 600px; top: 50px; left: 20px; z-index: 99; background-color: white; border-radius: 2px;
+  box-shadow: 1px 1px 2px #B3B3B3; overflow:scroll; color: black; padding: 10px; opacity: 80%;}
+#search { position: absolute; width: 456px; height: 50px; top: 50px; left: 400px; z-index: 99; opacity: 100%; border-radius: 2px; padding: 10px;}
+#results { position: absolute; width: 350px; height: 375px; top: 125px; right: 20px; z-index: 99; background-color: white; border-radius: 2px;
+  box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll; color: black; padding: 10px;}
+.results-text {
+  font-style: bold;
 }
+
+  .km-entry { width: 50px;}
