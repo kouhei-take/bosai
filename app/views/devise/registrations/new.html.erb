@@ -22,8 +22,8 @@
         <%= f.input :phone_number, autofocus: true, label: false, required: true, placeholder: "Phone Number" %>
 
         <!-- ToDo Enable to select organization from List-->
-        <div class="select-form">
-          <%= f.association :organization, autofocus: true, label: false, required: true, prompt: "Organization" %>
+        <div id="select-form">
+          <%= f.association :organization, autofocus: true, label: false, required: false, prompt: "Organization", input_html: { id: "org" } %>
         </div>
 
         <!-- ToDo Enable to select evacuation_point from Map-->
