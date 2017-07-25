@@ -7,8 +7,8 @@
       </div>
       <div id="search">
         <form class="form-inline">
-          <input type="Radius" placeholder="Enter KM" class="form-control km-entry" style="width: 100px;">
-          <input type="Address" placeholder="Point or Enter Address" class="form-control" style="width: 250px;">
+          <input type="text" id="radius" name="radius" placeholder="Enter KM" class="form-control km-entry" style="width: 100px;">
+          <input type="text" id="address" name="address" placeholder="Point or Enter Address" class="form-control" style="width: 250px;">
           <input type="submit" value="Search" class="btn btn-primary btn-bordered btn-bordered-primary" style="background-color: blue; border: none;">
         </form>
 
@@ -29,6 +29,9 @@
 
         var map;
 
+        var priorityHash = {high: 200, medium: 100, low: 0, null:0 }
+
+
         function initMap(callback) {
             map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
@@ -39,147 +42,169 @@
           map.markers = [];
           map.circles = [];
           // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-          var riceImage = {
-            url: '<%= asset_path('rice_image.png') %>',
-            scaledSize: new google.maps.Size(40, 40),
+          var foodImage = {
+            url: '<%= asset_path('food.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
+            anchor: new google.maps.Point(20, 20)
+
+          }
+          var waterImage = {
+            url: '<%= asset_path('water.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
             anchor: new google.maps.Point(20, 20)
 
           }
 
-          var riceImage = {
-            url: '<%= asset_path('rice_image.png') %>',
-            scaledSize: new google.maps.Size(40, 40),
+          var clothingImage = {
+            url: '<%= asset_path('clothing.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
             anchor: new google.maps.Point(20, 20)
 
           }
 
-          var riceImage = {
-            url: '<%= asset_path('rice_image.png') %>',
-            scaledSize: new google.maps.Size(40, 40),
+          var blanketsImage = {
+            url: '<%= asset_path('blankets.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
             anchor: new google.maps.Point(20, 20)
 
           }
 
-          var riceImage = {
-            url: '<%= asset_path('rice_image.png') %>',
-            scaledSize: new google.maps.Size(40, 40),
+          var tentsImage = {
+            url: '<%= asset_path('tents.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
             anchor: new google.maps.Point(20, 20)
 
           }
 
-          var riceImage = {
-            url: '<%= asset_path('rice_image.png') %>',
-            scaledSize: new google.maps.Size(40, 40),
+          var firstaidImage = {
+            url: '<%= asset_path('firstaid.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
             anchor: new google.maps.Point(20, 20)
 
           }
 
-          var riceImage = {
-            url: '<%= asset_path('rice_image.png') %>',
-            scaledSize: new google.maps.Size(40, 40),
-            anchor: new google.maps.Point(20, 20)
+          var driversImage = {
+            url: '<%= asset_path('drivers.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
+            anchor: new google.maps.Point(15, 15)
+          }
 
+           var heavyImage = {
+            url: '<%= asset_path('heavy.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
+            anchor: new google.maps.Point(15, 15)
+          }
+
+           var generalImage = {
+            url: '<%= asset_path('general.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
+            anchor: new google.maps.Point(15, 15)
           }
 
           var fireImage = {
             url: '<%= asset_path('fire_image.png') %>',
-            scaledSize: new google.maps.Size(30, 30),
-            anchor: new google.maps.Point(15, 15)
-          }
-
-          var medicalImage = {
-            url: '<%= asset_path('medical_image.png') %>',
-            scaledSize: new google.maps.Size(30, 30),
+            scaledSize: new google.maps.Size(45, 45),
             anchor: new google.maps.Point(20, 20)
 
           }
+
+
+          var medicalImage = {
+            url: '<%= asset_path('medical.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
+            anchor: new google.maps.Point(20, 20)
+
+          }
+
+          var rescueImage = {
+            url: '<%= asset_path('rescue.png') %>',
+            scaledSize: new google.maps.Size(45, 45),
+            anchor: new google.maps.Point(20, 20)
+
+          }
+
           var icons = {
-            relief: {
-              icon: riceImage
+            food: {
+              icon: foodImage
             },
-            relief: {
-              icon: riceImage
+            water: {
+              icon: waterImage
             },
-            relief: {
-              icon: riceImage
+            clothing: {
+              icon: clothingImage
             },
-            relief: {
-              icon: riceImage
+            blankets: {
+              icon: blanketsImage
             },
-            relief: {
-              icon: riceImage
+            tents: {
+              icon: tentsImage
             },
-            relief: {
-              icon: riceImage
+            firstaid: {
+              icon: firstaidImage
             },
-
             // supplies icons
-            //
 
-            relief: {
-              icon: riceImage
-            },
-            relief: {
-              icon: riceImage
-            },
-            relief: {
-              icon: riceImage
+            drivers: {
+              icon: driversImage
             },
 
+            heavy: {
+              icon: heavyImage
+            },
+
+            general: {
+              icon: generalImage
+            },
             // volunteers icons
-
 
             fire: {
               icon: fireImage
             },
+
             medical: {
               icon: medicalImage
             },
+
             rescue: {
-              icon: medicalImage
-            }
+              icon: rescueImage
+            },
+            //emergency icons
+
             // library: {
             //   icon: iconBase + 'info-i_maps.png'
             // }
           };
 
         var requests = [
-          <% @requests.each do |request| %>
-        {
-          position: new google.maps.LatLng(<%= request.latitude %>, <%= request.longitude %>),
-          category: '<%= request.category %>', id: <%= request.id %>, user_id: <%= request.user_id %>, address: '<%= request.address %>', priority: '<%= request.priority %>', status: '<%= request.status %>', created_at: '<%= request.created_at %>', updated_at: '<%= request.updated_at %>'
+          <% ItemsRequest.all.each do |ir| %>
+
+
+         {
+          position: new google.maps.LatLng(<%= ir.request.latitude %>, <%= ir.request.longitude %>),
+          category: '<%= ir.request.category %>', id: <%= ir.request.id %>, user_id: <%= ir.request.user_id %>, address: '<%= ir.request.address %>', priority: '<%= ir.request.priority %>', status: '<%= ir.status %>', created_at: '<%= ir.created_at %>', updated_at: '<%= ir.updated_at %>', item_name: '<%= ir.item.name %>', quantity: <%= ir.quantity %>, item_id: '<%= ir.item.id %>'
         },
+
           <% end %>
           ];
           // end of requests assignment
-          function createCircle(marker) {
+          function createCircle(marker, priorityRadius) {
             var circle = new google.maps.Circle({
                 center: marker.position,
                 map:map,
-                radius:50,
-                strokeColor: "red",
-                strokeOpacity:0.8,
+                radius:priorityRadius,
+                strokeColor: "blue",
+                strokeOpacity:0.25,
                 strokeWeight: 2,
-                fillColor: "red"
+                fillColor: "blue"
             });
-
             return circle;
           }
 
           function createMarker(index) {
 
-             // function markerFilter(marker){
-             //    if (requests[index].category == 'relief') {
-             //      marker.setMap(null);
-             //      marker = null;
-             //    }
-             //  };
-
-
-
             var marker = new google.maps.Marker({
               position: requests[index].position,
-              icon: icons[requests[index].category].icon, //CHANGE ICONS HERE
+              icon: icons[requests[index].item_name].icon, //CHANGE ICONS HERE
               map: map,
               id: requests[index].id,
               user_id: requests[index].user_id,
@@ -187,13 +212,21 @@
               address: requests[index].address,
               priority: requests[index].priority,
               status: requests[index].status,
+              item_name: requests[index].item_name,
+              quantity: requests[index].quantity,
               created_at: requests[index].created_at,
               updated_at: requests[index].updated_at,
 
               // label: labels[i % labels.length]
             });
 
-            map.circles.push(createCircle(marker));
+            var priority = "high";  // TAKE PRIORITY HERE
+
+            map.circles.push(createCircle(marker, priorityHash[priority]));
+
+            // createdpushes circles into array
+
+
             // console.log(marker.map);
 // var map = map;
 
@@ -226,10 +259,12 @@
                   + '<p class="results-text">' + 'Address:  ' + marker.address + '</p>'
                   + '<p class="results-text">' + 'Priority:  ' + marker.priority + '</p>'
                   + '<p class="results-text">' + 'Status:  ' + marker.status + '</p>'
+                   + '<p class="results-text">' + 'Item:  ' + marker.item_name + '</p>'
+                    + '<p class="results-text">' + 'Quantity:  ' + marker.quantity + '</p>'
                   + '<p class="results-text">' + 'Created at:  ' + marker.created_at + '</p>'
                   + '<p class="results-text">' + 'Updated at:  ' + marker.updated_at + '</p>'
                   // + '<%#= button_to "Show Details", user_request_path(' + marker.user_id + ', ' + marker.id + '), class: 'btn btn-primary' %>'
-                  + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '" class="btn btn-primary"> Show Details </a>'
+                  + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '" class="btn btn-primary" style="background-color:green;"> Show Details </a>'
                   )};
                 // end of displayEachData
 
@@ -261,7 +296,7 @@
         // callback();
         callback();
       }
-       // end of init map
+       // END OF INITMAP end of init map
 
         var filtersHash = {food:false, water:false, clothing:false, blankets:false, tents:false, firstaid:false, drivers:false, heavy:false, general:false, fire:false, medical:false, rescue:false }
         //set initial value of checkboxes
@@ -270,22 +305,27 @@
 
           for (i = 0; i < map.markers.length; i++) {
 
-            var marker = map.markers[i].category; //
+            var itemName = map.markers[i].item_name; //
 
-            console.log(marker);
-
-            if ( hash[marker] == true ) {
-              // map.markers[i].setMap(null);
+            if ( hash[itemName] == true ) {
+              console.log(hash);
+              console.log(itemName);
+              console.log(map.markers[i].id);
+              map.markers[i].setMap(null);
+              console.log(map.markers[i].map);
               // map.circles[0].setVisible(false);
-              // markers[0].setVisible(false);
+              // map.markers[i].setVisible(false);
               // delete map.markers[i];
-             // delete map.circles[0];
-          console.log("true");
+              console.log(map.markers)
+               // delete map.circles[0];
+              console.log("true");
+              map.circles[i].setMap(null);
 
           } else {
 
-            // map.markers[i].setMap(map);
-            console.log("false");
+            map.markers[i].setMap(map);
+            map.circles[i].setMap(map);
+            // console.log("false");
 
           };
         };
@@ -305,34 +345,12 @@
       // get value of checkbox
 
 
+     // function markerLength() {
+     //  console.log(map.markers.length);
 
-      // function onFilterChange() {
-      //   $('input[name=filter]').change(function () {
-      //     var changedBoxClick = $(this).attr('value');
-      //     filterMarkers();
-      //   // console.log(changedBoxClick);
+     // };
 
-      //   });
-      // };
-
-
-
-        // map.markers[0].setMap(null);
-        // // map.circles[0].setVisible(false);
-        // // markers[0].setVisible(false);
-        // delete map.markers[0];
-        // delete map.circles[0];
-
-
-      // initMap(consoleMarkers);
-      // initMap(filterMarkers);
       initMap(onFilterChange);
-      // filterMarkers();
-
-
-      // getFiltersHash();
-      // gets hash indicating which filters are checked
-
 
       </script>
       <!-- end of map script -->
