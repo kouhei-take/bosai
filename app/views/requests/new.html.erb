@@ -9,10 +9,10 @@
       <%= simple_form_for [@user, @request] do |f| %>
       <%= f.error_notification %>
       <div class="form-inputs">
-        <%= f.input :category, required: true, autofocus: true, collection: ["Supplies", "Fire", "Medical", "Other"] %>
+        <%= f.input :category, required: true, autofocus: true, collection: ["Fire", "Medical", "Rescue", "Volunteer", "Supplies"] %>
         <%= f.input :address, required: true, autofocus: true %>
-        <%= f.input :priority, required: true, autofocus: true, collection: ["Extremely Urgent", "Urgent", "Moderate", "Not Urgent"] %>
-        <!-- ToDo Add Map Functin and get latitude and longitude Here -->
+
+<!-- ToDo Add Map Functin and get latitude and longitude Here -->
         <!-- ToDo Enable to select evacuation_point from Map-->
       </div>
 
