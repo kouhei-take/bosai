@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'messages/create'
+
+  get 'messages/update'
+
   # get 'items_requests/index'
   # get 'items_requests/show'
   # get 'items_requests/create'
@@ -20,6 +24,7 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     resources :requests do
       resources :items_requests
+      resources :messages ##only: [:edit, :update]
     end
   end
 end

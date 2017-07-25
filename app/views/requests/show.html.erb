@@ -1,2 +1,142 @@
-<h1>Requests#show</h1>
-<p>Find me in app/views/requests/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <h2>Request Information</h2>
+      <table class="table table-striped table-responsive">
+        <tr>
+          <th>Category</th>
+          <td>
+            <%= @request.category  %></td>
+        </tr>
+        <tr>
+          <th>Priority</th>
+          <td>
+            <%= @request.priority  %></td>
+        </tr>
+        <tr>
+          <th>Status</th>
+          <td>
+            <%= @request.status  %></td>
+        </tr>
+        <tr>
+          <th>Items</th>
+          <td>
+            <%= @request.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if @request.items_requests.present? %></td>
+        </tr>
+      </table>
+
+      <table class="table table-striped table-responsive table-condensed">
+        <tr>
+          <th>
+            Request User</th>
+          <td><%= @request_user.first_name.capitalize + " " + @request_user.last_name.capitalize %>
+          </td>
+        </tr>
+        <tr>
+          <th>Contact</th>
+          <td><%= @request_user.email  %></td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td><%= @request_user.address.nil? ? "n/a" : @request_user.address %></td>
+        </tr>
+        <tr>
+          <th>Phone Number</th>
+          <td><%= @request_user.phone_number.nil? ? "n/a" : @request_user.phone_number %></td>
+        </tr>
+        <tr>
+          <th>Organization</th>
+          <td><%= @request_user.organization.nil? ? "n/a" : @request_user.organization.name %></td>
+        </tr>
+        <tr>
+          <th>Evacuation Point</th>
+          <td><%= @request_user.evacuation_point.nil? ? "n/a" : @request_user.evacuation_point.name %></td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <h3>Map</h3>
+      <div id="map3" style="width:100%; height:400px;"></div>
+    </div>
+  </div>
+
+  <!-- First Row End -->
+    <hr style="border-top: 1px solid black; margin-bottom: 0px;">
+
+  <!-- 2nd Row Start -->
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <h2>Send Message</h2>
+          <%= simple_form_for [@request_user, @request, @message] do |f| %>
+            <%= f.input :text, label: "Content" %>
+            <%= f.button :submit, "Post", {class: "btn-lg btn-sign" } %>
+          <% end %>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <h2>Communication Log</h2>
+        <table class="table table-bordered table-responsive">
+          <thread>
+            <tr>
+              <th>Post User</th><th>Message</th><th>Date</th>
+            </tr>
+          </thread>
+            <% @past_messags.each do |pm| %>
+              <tr>
+                <td><%= pm.user.first_name %></td>
+                <td><%= pm.text %></td>
+                <td><%= pm.created_at %></td>
+              </tr>
+            <% end %>
+        </table>
+    </div>
+
+  </div>
+  <!-- 2nd Row End -->
+
+  <hr>
+
+</div>
+
+
+
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?language=en&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer_compiled.js"></script> -->
+  <!-- <script src="https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js"></script> -->
+  <!-- <script src="https://cdn.rawgit.com/apneadiving/Google-Maps-for-Rails/master/js_compilation/gmaps_google.js"></script> -->
+
+  <script type="text/javascript">
+    /////////////////////////////////////////////////
+
+    $(document).on('ready', function () {
+      /////////////////////////////////////////////////////// ////////////Draw Map/////////////////////////////
+      var handler = Gmaps.build('Google', {
+        markers: {
+          clusterer: undefined
+        }
+      });
+      handler.buildMap({
+        internal: {
+          id: 'map3'
+        }
+      }, function () {
+        markers = handler.addMarkers([
+          {
+            "lat": "<%= @request.latitude %>",
+            "lng": "<%= @request.longitude %>"
+          }
+        ]);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        handler.getMap().setCenter(new google.maps.LatLng("<%= @request.latitude %>", "<%= @request.longitude %>"));
+        handler.getMap().setZoom(15);
+      });
+    })
+    ////////////////////
+  </script>

@@ -12,7 +12,10 @@ class RequestsController < ApplicationController
   end
 
   def show
-    # @request = params[:data_value]
+    @request = Request.find(params[:id])
+    @request_user = User.find(params[:user_id])
+    @past_messags = @request.messages
+    @message = Message.new
   end
 
   def list
@@ -46,19 +49,21 @@ class RequestsController < ApplicationController
   end
 
   def update
+    @request = Request.find(params[:id])
+    @request.update(strong_params_request)
+    redirect_to user_request_path(@request.user_id, @request.id)
   end
 
   def destroy
     @request = Request.find(params[:id])
     @request.destroy
     redirect_to user_requests_path(current_user)
-
   end
 
   private
 
   def strong_params_request
-    params.require(:request).permit(:category, :address, :priority)
+    params.require(:request).permit(:category, :address, :priority, :user_id, :longitude, :latitude, :text, :status)
   end
 
 end

@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook, :twitter]
   belongs_to :organization, optional: true ###################
   has_many :requests
+  has_many :messages
   belongs_to :evacuation_point, optional: true ##############
 
   geocoded_by :address
