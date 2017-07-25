@@ -70,16 +70,19 @@ org6.save
   end
 end
 
-Item.create!(name: "volunteer rescue")  # item id 1
-Item.create!(name: "volunteer transport")
-Item.create!(name: "blanket")
-Item.create!(name: "tent")
-Item.create!(name: "clothes")  #5
+Item.create!(name: "food")  # item id 1
 Item.create!(name: "water")
-Item.create!(name: "rice")
-Item.create!(name: "miso")
-Item.create!(name: "fire brigade")
-Item.create!(name: "ambulance")  #10
+Item.create!(name: "clothing")
+Item.create!(name: "blankets")
+Item.create!(name: "tents")  #5
+Item.create!(name: "firstaid")
+Item.create!(name: "drivers")
+Item.create!(name: "heavy")
+Item.create!(name: "general")
+Item.create!(name: "fire") #10
+Item.create!(name: "medical")
+Item.create!(name: "rescue")
+
 
 request = Request.new(user_id: 1, category: "relief", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
 request.save
@@ -112,13 +115,13 @@ items_request = ItemsRequest.new(item_id: 1, request_id: 3, quantity: 6, status:
 items_request.save
 items_request = ItemsRequest.new(item_id: 4, request_id: 3, quantity: 4, status: "open")
 items_request.save
-items_request = ItemsRequest.new(item_id: 6, request_id: 3, quantity: 20, status: "open")
+items_request = ItemsRequest.new(item_id: 10, request_id: 3, quantity: 20, status: "open")
 items_request.save
 # user=2 requires fire help
 items_request = ItemsRequest.new(item_id: 9, request_id: 2, quantity: 1, status: "open")
 items_request.save
 # user=3 requires water, rice, miso, he's still in his apt bldg
-items_request = ItemsRequest.new(item_id: 6, request_id: 1, quantity: 35, status: "open")
+items_request = ItemsRequest.new(item_id: 10, request_id: 1, quantity: 35, status: "open")
 items_request.save
 items_request = ItemsRequest.new(item_id: 7, request_id: 1, quantity: 5, status: "open")
 items_request.save
@@ -128,7 +131,7 @@ items_request.save
 items_request = ItemsRequest.new(item_id: 10, request_id: 6, quantity: 1, status: "closed")
 items_request.save
 # user=6 had a medical emergency which has been dealt with
-items_request = ItemsRequest.new(item_id: 9, request_id: 5, quantity: 1, status: "closed")
+items_request = ItemsRequest.new(item_id: 12, request_id: 5, quantity: 1, status: "closed")
 items_request.save
 # user=7 requests mutiple things of which some have been proivded
 items_request = ItemsRequest.new(item_id: 6, request_id: 7, quantity: 24, status: "closed")
@@ -140,9 +143,9 @@ items_request.save
 items_request = ItemsRequest.new(item_id: 5, request_id: 7, quantity: 12, status: "open")
 items_request.save
 # user=8 requests mutiple things of which some have been proivded
-items_request = ItemsRequest.new(item_id: 2, request_id: 8, quantity: 2, status: "closed")
+items_request = ItemsRequest.new(item_id: 10, request_id: 8, quantity: 2, status: "closed")
 items_request.save
-items_request = ItemsRequest.new(item_id: 6, request_id: 8, quantity: 10, status: "closed")
+items_request = ItemsRequest.new(item_id: 2, request_id: 8, quantity: 10, status: "closed")
 items_request.save
 items_request = ItemsRequest.new(item_id: 7, request_id: 8, quantity: 5, status: "open")
 items_request.save
