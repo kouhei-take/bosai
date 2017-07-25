@@ -2,9 +2,13 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6">
 
-      <!-- rying go implement the function to get current location
-      <div><%#= button_tag(type: 'button', class: "currentLocation") do content_tag(:strong, 'Ask me!') %>
-      </div> -->
+<!-- Trying go implement the function to get current location -->
+<% if false %>
+      <div><%= button_tag(type: 'button', class: "currentLocation") do
+  content_tag(:strong, 'Ask me!') end %>
+      </div>
+<% end %>
+<!-- Trying go implement the function to get current location -->
 
       <h2>Your Information</h2>
 
@@ -15,7 +19,7 @@
           </td>
         </tr>
         <tr>
-          <th>Email</th>
+          <th>Contact</th>
           <td><%= current_user.email  %></td>
         </tr>
         <tr>
@@ -43,7 +47,7 @@
 
     <div class="col-xs-12 col-sm-6">
       <h3>Map</h3>
-      <div id="map2" style="width:550px; height:400px;"></div>
+      <div id="map2" style="width:100%; height:400px;"></div>
     </div>
   </div>
 
@@ -85,8 +89,8 @@
               <td>
                 <%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
             </tr>
-            <!--         <tr><th>Created_at</th> <td> <%= r.created_at %></td></tr>
-                      <tr><th>Updated_at</th> <td> <%= r.updated_at %></td></tr>
+            <!--         <tr><th>Created_at</th> <td> <%#= r.created_at %></td></tr>
+                      <tr><th>Updated_at</th> <td> <%#= r.updated_at %></td></tr>
                -->
 
           </table>
@@ -123,7 +127,11 @@
 <!-- <script src="https://cdn.rawgit.com/apneadiving/Google-Maps-for-Rails/master/js_compilation/gmaps_google.js"></script> -->
 
 <script type="text/javascript">
+/////////////////////////////////////////////////
+
   $(document).on('ready', function () {
+    ///////////////////////////////////////////////////////
+    //////////////Draw Map/////////////////////////////
     var handler = Gmaps.build('Google', {
       markers: {
         clusterer: undefined
@@ -155,13 +163,31 @@
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
       handler.getMap().setCenter(new google.maps.LatLng("<%= current_user.latitude %>", "<%= current_user.longitude %>"));
-      //handler.map.centerOn("<%= current_user.latitude %>", "<%= current_user.longitude %>");
       handler.getMap().setZoom(15);
     });
   })
-  // //////////////////////////////////////////////////////////// //////////////////////////////////////////////////////////// // $('.currentLocation').on 'click', -> if( navigator.geolocation ){   //Get Current Location
-  // navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options)   alert( "Successfully Got Current Location" ) ; } else{   alert( "Your browser does not support Geolocation." ) ; };
-  //
-  // options = enableHighAccuracy: true // // successGetPosition = (position) -> //   window.location.href = "/shops/searches?latitude=#{position.coords.latitude}&longitude=#{position.coords.longitude}" // // options = //   enableHighAccuracy: true //
-  // // failGetPosition = (error) -> //   switch error.code
+  ////////////////////
+  var options = {
+    enableHighAccuracy: true,
+    timeout : 10000,
+    maximumAge: 0
+  };
+
+  function successGetPosition(position){
+    alert( "Successfully Got Current Location" );
+    alert( "lat:" + position.coords.latitude + ", lng:" + position.coords.longitude);
+    window.location.href = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+  };
+
+  function failGetPosition(){
+    alert( "Failed. Your browser does not support Geolocation." );
+  };
+
+  $('.currentLocation').click(function(){
+    if( navigator.geolocation ){   //Get Current Location
+      navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
+    }
+  });
+     // // successGetPosition = (position) -> //   window.location.href = "/shops/searches?latitude=#{position.coords.latitude}&longitude=#{position.coords.longitude}" // // options = //   enableHighAccuracy: true //
+    // failGetPosition = (error) -> //   switch error.code
 </script>

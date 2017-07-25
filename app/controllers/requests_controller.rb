@@ -2,6 +2,13 @@ class RequestsController < ApplicationController
   def index
     @requests = Request.where(user: current_user)
     @near_shelters = EvacuationPoint.near([current_user.latitude, current_user.longitude], 5)
+    #raise
+    if params[:lat]
+      user = current_user
+      user.latitude = params[:lat]
+      user.longitude = params[:lng]
+      user.save!
+    end
   end
 
   def show

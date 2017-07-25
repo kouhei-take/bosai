@@ -8,6 +8,9 @@ class User < ApplicationRecord
   belongs_to :evacuation_point, optional: true ##############
 
   geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
+
+  after_validation :reverse_geocode
   after_validation :geocode, if: :address_changed?
 
   ##########################################################################################
@@ -36,7 +39,7 @@ class User < ApplicationRecord
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
       user = User.create!(first_name: auth.info.nickname,
-                         last_name: "From Twitter",
+                         last_name: "@twitter",
                          provider: auth.provider,
                          uid:      auth.uid,
                          email:    "#{auth.info.urls[:Twitter]}@Twitter",
@@ -54,5 +57,18 @@ class User < ApplicationRecord
   def self.create_unique_email
     User.create_unique_string + "@example.com"
   end
-####################################################################################33
+####################################################################################
+   def update_without_current_password(params, *options)
+     params.delete(:current_password)
+
+     if params[:password].blank? && params[:password_confirmation].blank?
+       params.delete(:password)
+       params.delete(:password_confirmation)
+     end
+
+     result = update_attributes(params, *options)
+     clean_up_passwords
+     result
+   end
+##############################################
 end
