@@ -40,5 +40,9 @@ group :development do
   gem "rails-erd"
 end
 
+gem "railroady"
+
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+
+gem 'cocoon'
