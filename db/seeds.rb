@@ -11,11 +11,11 @@ puts 'seed start!'
 
 [
   "Meguro Citizens Walking Group",
-  "Funny Accents Meguro River",
+  "Funny Accents Asso, Meguro Riverside",
   "Meguro Lawyers Association",
   "Tennis Players Meguro United",
   "Naka Meguro Craft Beer Lovers",
-  "Association of Hen-na Gaijin, Meguro ku",
+  "Association of Hen-na Gaijin, Meguro ku"
 ].each do |name|
   puts Organization.find_or_create_by!(name: name)
 end
@@ -43,12 +43,12 @@ end
 [
   {first_name: "takashi", last_name: "tamura", email: 'takashi@tamura.com', password: '123456', address: "2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.9353.0938", organization_id: 1},
   {first_name: "pk", last_name: "kapur", email: 'pk@kapur.com', password: '123456', address: "1-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.9353.7838", organization_id: 1},
-  {first_name: "boris", last_name: "theSpider", email: 'boris@spider.web', password: '123456', address: "Spiders Web Apts, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.2253.0938", organization_id: 2},
-  {first_name: "sebastian", last_name: "froggman", email: 'sebastian@goodteacher.org', password: '123456', address: "LeWagon Startup House #4, 4-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.1354.5938", organization_id: 2},
-  {first_name: "mariko", last_name: "oike", email: 'mariko.oike@lawyer.io', password: '123456', address: "Notos Meguro Mansion Apt 5, 1-11-3, Meguro, Meguro-ku, Tokyo 153-0061", phone_number: "080.9354.7638", organization_id: 3},
-  {first_name: "deebee", last_name: "ooh", email: 'deebee@ooh.earth', password: '123456', address: "Instructors Chair Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.0942", organization_id: 4},
-  {first_name: "Moe", last_name: "Moon", email: 'moe@moon.org', password: '123456', address: "Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.1265", organization_id: 1},
-  {first_name: "Faat", last_name: "Indian", email: 'Faat@indian.earth', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5}
+  {first_name: "sousuke", last_name: "ebina", email: 'sousuke@ebina.com', password: '123456', address: "Spiders Web Apts, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.2253.0938", organization_id: 2},
+  {first_name: "chikara", last_name: "okada", email: 'chikara@okada.com', password: '123456', address: "LeWagon Startup House #4, 4-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.1354.5938", organization_id: 2},
+  {first_name: "kouhei", last_name: "takeshita", email: 'kouhei@takeshita.com', password: '123456', address: "Notos Meguro Mansion Apt 5, 1-11-3, Meguro, Meguro-ku, Tokyo 153-0061", phone_number: "080.9354.7638", organization_id: 3},
+  {first_name: "deebee", last_name: "ooh", email: 'deebee@ooh.com', password: '123456', address: "Instructors Chair Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.0942", organization_id: 4},
+  {first_name: "misaki", last_name: "iwai", email: 'misaki@iwai.com', password: '123456', address: "Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.1265", organization_id: 1},
+  {first_name: "kie", last_name: "kashiwagi", email: 'kie@kashiwagi.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5}
 ].each do |user_params|
   puts user_params
   unless User.find_by(email: user_params[:email].downcase)
@@ -56,16 +56,19 @@ end
   end
 end
 
-Item.create!(name: "volunteer rescue")  # item id 1
-Item.create!(name: "volunteer transport")
-Item.create!(name: "blanket")
-Item.create!(name: "tent")
-Item.create!(name: "clothes")  #5
-Item.create!(name: "water")
-Item.create!(name: "rice")
-Item.create!(name: "miso")
-Item.create!(name: "fire brigade")
-Item.create!(name: "ambulance")  #10
+Item.create!(name: "fire")      # item id 1
+Item.create!(name: "medical") #2
+Item.create!(name: "heavy")  #3
+Item.create!(name: "drivers")      #4
+Item.create!(name: "general")     #5
+Item.create!(name: "tents")      #6
+Item.create!(name: "blankets")   #7
+Item.create!(name: "firstaid") #8
+Item.create!(name: "water")     #9
+Item.create!(name: "food")      #10
+Item.create!(name: "clothing")   #11
+Item.create!(name: "rescue")   #12
+
 
 request = Request.new(user_id: 1, category: "relief", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
 request.save

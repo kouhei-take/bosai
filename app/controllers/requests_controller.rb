@@ -31,6 +31,8 @@ class RequestsController < ApplicationController
   def create
     @request = Request.new(strong_params_request)
     @request.user = current_user
+    @request.longitude = current_user.longitude
+    @request.latitude = current_user.latitude
     if @request.save
       redirect_to user_request_items_requests_path(current_user.id, @request.id)
     end
