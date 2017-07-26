@@ -16,7 +16,7 @@
 ////////////////////
 var options = {
   enableHighAccuracy: true,
-  timeout: 10000,
+  timeout: 20000,
   maximumAge: 0
 };
 
@@ -35,4 +35,5 @@ $(document).on('ready', function () {
     navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
   }
 });
+
 </script>
