@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # get 'requests/update'
   # get 'requests/destroy'
   get 'requests/list'
+  get 'requests/geolocate'
+
   root to: 'pages#home'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
