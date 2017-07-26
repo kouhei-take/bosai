@@ -21,7 +21,7 @@ class RequestsController < ApplicationController
   def list
    ###Conditonal of Search 0726 by Kouhei #############
    ####prams[:address] = string, params[:radius] = integer
-   @items_requests = ItemsRequest.all
+   @items_requests = ItemsRequest.joins(:request).where.not(requests: {longitude: nil, latitude: nil} )
    ##Request.where(user: current_user)
 
     # if params[:latitude] && params[:longitude] && radius
