@@ -20,12 +20,14 @@
     <% if user_signed_in? %>
 
     <!-- Notification -->
-    <%= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
+    <!-- Sou July26
+    <%#= link_to "#", class: "navbar-wagon-item navbar-wagon-link" do %>
     <div class="badge-container">
       <i class="fa fa-envelope-o"></i>
       <div class="badge badge-blue">3</div>
     </div>
-    <% end %>
+    <%# end %>
+    -->
 
     <!-- Link to Get Help and Provide Help page  by Sou July20-->
     <%= link_to "Get Help", new_user_request_path(current_user.id), { class: "navbar-wagon-item navbar-wagon-link" } %>
