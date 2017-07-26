@@ -2,6 +2,9 @@ class RequestsController < ApplicationController
   def index
     @requests = Request.where(user: current_user)
     @near_shelters = EvacuationPoint.near([current_user.latitude, current_user.longitude], 5)
+    @helpings = Request.joins(:messages).where(messages: {user_id: current_user}).where.not(requests: {user_id: current_user})
+    #raise
+
     #raise
     if params[:lat]
       user = current_user
@@ -24,23 +27,24 @@ class RequestsController < ApplicationController
    ## In order to use parameters in view again, It can be used also in the view page.
    @radius = params[:radius]
 
+   if @radius == "" || @radius == nil
+     radius = 20  ## I set the default value (No explicit radious case) to 20 Km
+   else
+     radius = @radius
+   end
+
    ## 0726 by Kouhei
    ## Below is code for map
-   temp = ItemsRequest.joins(:request).where.not(requests: {latitude: nil, longitude: nil} )
+   temp = ItemsRequest.joins(:request).where.not(requests: {latitude: nil} )
 
-    if params[:address] != ""
-
-      if @radius == ""
-        radius = 20  ## I set the default value (No explicit radious case) to 20 Km
-      else
-        radius = @radius
-      end
-
-    nearby = Request.near(params[:address], radius, select: "*")
-    @items_requests = temp.joins(:request).merge(nearby)
-
-    else
+    if params[:address] == nil || params[:address] == "" || Request.near(params[:address], radius).first == nil
+      ##&& Request.near(params[:address], @radius, select: "*") != nil
       @items_requests = temp
+      #raise
+    else
+      nearby = Request.near(params[:address], radius, select: "*")
+      @items_requests = temp.joins(:request).merge(nearby)
+      #raise
     end
 
     ## 0726 by Kouhei
