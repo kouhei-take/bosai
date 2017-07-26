@@ -60,13 +60,13 @@
   <div class="row">
     <!-- <div><p class="h2">Your Requests</p></div> -->
 
-    <!-- USER REQUESTS -->
+    <!-- USER REQUESTS START -->
     <div class="col-xs-12 col-sm-6">
       <p class="h2">Your Requests</p>
    <!--    <div class="wrapper-aqua">
         <p class="h4">Enter Your Request</p>
         <div>
-         <%= link_to 'Create New Request', new_user_request_path(current_user), class:"btn btn-lg btn-text-small btn-success btn-block" %>
+         <%#= link_to 'Create New Request', new_user_request_path(current_user), class:"btn btn-lg btn-text-small btn-success btn-block" %>
         </div>
         <div> </div>
       </div> -->
@@ -94,11 +94,49 @@
         </div>
       </div>
     </div>
+    <!-- USER REQUESTS END -->
+
+    <!-- HELP START -->
+    <div class="col-xs-12 col-sm-6">
+      <p class="h2">Your Helping Hands</p>
+   <!--    <div class="wrapper-aqua">
+        <p class="h4">Enter Your Request</p>
+        <div>
+         <%#= link_to 'Create New Request', new_user_request_path(current_user), class:"btn btn-lg btn-text-small btn-success btn-block" %>
+        </div>
+        <div> </div>
+      </div> -->
+      <div>
+      <table class="table table-hover table-condensed text-left">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @requests.each do |r| %>
+          <tr>
+            <td scope="row"><%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
+            <td><%= r.status  %></td>
+            <td><%= link_to 'Delete', user_request_path(current_user.id, r.id), data: { confirm: "Are you sure?" }, method: :delete, class: "text-warning text-left" %></td>
+          </tr>
+        <% end %>
+          </tbody>
+        </table>
+        <div>
+         <%= link_to 'Provide Help', requests_list_path, class:"btn btn-lg btn-text-small btn-info btn-block" %>
+        </div>
+      </div>
+    </div>
+    <!-- HELP END -->
 
   <!-- End of row with Requests -->
   </div>
 <!-- End of Container -->
 </div>
+
 
 <!-- Sou July26 -->
 <!--  <h2>Provide Help</h2>
