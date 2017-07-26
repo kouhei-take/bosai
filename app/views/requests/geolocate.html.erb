@@ -13,8 +13,8 @@
   ///////////////////////////////////////////////// ///////////////////////////////////////////////////// ////////////Draw Map///////////////////////////// //////////////////
   var options = {
     enableHighAccuracy: true,
-    timeout: 20000,
-    maximumAge: 0
+    timeout: 100000,
+    maximumAge: 10000
   };
 
   function successGetPosition(position) {
@@ -33,6 +33,7 @@
 
   $(document).on('ready', function () {
     if (navigator.geolocation) { //Get Current Location
+        alert("start");
       navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
     }
   });
