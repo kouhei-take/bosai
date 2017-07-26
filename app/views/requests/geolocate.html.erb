@@ -28,6 +28,9 @@
   };
 
   function failGetPosition(failure) {
+    if(failure.message.indexOf("Only secure origins are allowed") == 0) {
+      alert("https");
+    }
     alert(failure.message);
   };
 
