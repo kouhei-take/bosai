@@ -12,10 +12,10 @@ puts 'seed start!'
 [
   "Meguro Citizens Walking Group",
   "Funny Accents Asso, Meguro Riverside",
-  "Meguro Lawyers Association",
+  "Seirinkan Pizza Lovers Unite",
   "Tennis Players Meguro United",
   "Naka Meguro Craft Beer Lovers",
-  "Association of Hen-na Gaijin, Meguro ku"
+  "Association of Hen-na Gaijin of Meguro ku"
 ].each do |name|
   puts Organization.find_or_create_by!(name: name)
 end
@@ -48,7 +48,12 @@ end
   {first_name: "kouhei", last_name: "takeshita", email: 'kouhei@takeshita.com', password: '123456', address: "Notos Meguro Mansion Apt 5, 1-11-3, Meguro, Meguro-ku, Tokyo 153-0061", phone_number: "080.9354.7638", organization_id: 3},
   {first_name: "deebee", last_name: "ooh", email: 'deebee@ooh.com', password: '123456', address: "Instructors Chair Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.0942", organization_id: 4},
   {first_name: "misaki", last_name: "iwai", email: 'misaki@iwai.com', password: '123456', address: "Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.1265", organization_id: 1},
-  {first_name: "kie", last_name: "kashiwagi", email: 'kie@kashiwagi.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5}
+  {first_name: "Tetsuya", last_name: "Yokoyama", email: 'tetsuya@yokoyama.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5},
+  {first_name: "Keisuke", last_name: "Yoshida", email: 'keisuke@yoshida.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5023.1208", organization_id: 5},
+  {first_name: "Masanori", last_name: "Ushiki", email: 'masanori@ushiki.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.5402.6734", organization_id: 3},
+  {first_name: "masanao", last_name: "matsumoto", email: 'kie@kashiwagi.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5619.8956", organization_id: 3},
+  {first_name: "kie", last_name: "kashiwagi", email: 'kie@kashiwagi.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.1298.0091", organization_id: 4},
+  {first_name: "Hidei", last_name: "Nagaoka", email: 'hidei@nagaoka.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.2799.0023", organization_id: 4}
 ].each do |user_params|
   puts user_params
   unless User.find_by(email: user_params[:email].downcase)
@@ -70,25 +75,36 @@ Item.create!(name: "food")      #10
 Item.create!(name: "clothing")   #11
 Item.create!(name: "rescue")   #12
 
+# Original seed requests with Geo coordinates that Chikara has been testing against
+#
+# request = Request.new(user_id: 1, category: "supplies", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
+# request.save
+# request = Request.new(user_id: 2, category: "fire", address: "A place closer to meguro-ku", latitude: 35.633842, longitude: 139.708226, status: "open", priority: "high")
+# request.save
+# request = Request.new(user_id: 3, category: "rescue", address: "Near Naka Meguro station", latitude: 35.631869, longitude: 139.706703, status: "open", priority: "high")
+# request.save
+# request = Request.new(user_id: 4, category: "supplies", address: "Down in the meguro river", latitude: 35.633281, longitude: 139.701854, status: "open", priority: "low")
+# request.save
+# request = Request.new(user_id: 5, category: "fire", address: "Meguro Police station", latitude: 35.638635, longitude: 139.708012, status: "closed", priority: "high")
+# request.save
+# # REQUEST #6 below
+# request = Request.new(user_id: 6, category: "medical", address: "Bldg opposite Meguro kuyakusho", latitude: 35.632758, longitude: 139.713752, status: "closed", priority: "high")
+# request.save
+# request = Request.new(user_id: 7, category: "supplies", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
+# request.save
+# request = Request.new(user_id: 8, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
+# request.save
 
 
-request = Request.new(user_id: 1, category: "relief", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
-request.save
-request = Request.new(user_id: 2, category: "fire", address: "A place closer to meguro-ku", latitude: 35.633842, longitude: 139.708226, status: "open", priority: "high")
-request.save
-request = Request.new(user_id: 3, category: "rescue", address: "Near Naka Meguro station", latitude: 35.631869, longitude: 139.706703, status: "open", priority: "high")
-request.save
-request = Request.new(user_id: 4, category: "relief", address: "Down in the meguro river", latitude: 35.633281, longitude: 139.701854, status: "open", priority: "low")
-request.save
-request = Request.new(user_id: 5, category: "fire", address: "Meguro Police station", latitude: 35.638635, longitude: 139.708012, status: "closed", priority: "high")
-request.save
+Request.create(user_id: 1, category: "supplies", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
+Request.create(user_id: 2, category: "fire", address: "A place closer to meguro-ku", latitude: 35.633842, longitude: 139.708226, status: "open", priority: "high")
+Request.create(user_id: 3, category: "rescue", address: "Near Naka Meguro station", latitude: 35.631869, longitude: 139.706703, status: "open", priority: "high")
+Request.create(user_id: 4, category: "supplies", address: "Down in the meguro river", latitude: 35.633281, longitude: 139.701854, status: "open", priority: "low")
+Request.create(user_id: 5, category: "fire", address: "Meguro Police station", latitude: 35.638635, longitude: 139.708012, status: "closed", priority: "high")
 # REQUEST #6 below
-request = Request.new(user_id: 6, category: "medical", address: "Bldg opposite Meguro kuyakusho", latitude: 35.632758, longitude: 139.713752, status: "closed", priority: "high")
-request.save
-request = Request.new(user_id: 7, category: "relief", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
-request.save
-request = Request.new(user_id: 8, category: "relief", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
-request.save
+Request.create(user_id: 6, category: "medical", address: "Bldg opposite Meguro kuyakusho", latitude: 35.632758, longitude: 139.713752, status: "closed", priority: "high")
+Request.create(user_id: 7, category: "supplies", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
+Request.create(user_id: 8, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
 
 
 
