@@ -59,9 +59,11 @@
         function initMap(callback) {
             map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
-            center: new google.maps.LatLng(<%= @requests.first.latitude %>, <%= @requests.first.longitude %>),
+            center: new google.maps.LatLng(<%= @items_requests.first.request.latitude %>, <%= @items_requests.first.request.longitude %>),
             mapTypeId: 'roadmap'
           });
+
+            // current_user.latitude current_user.longitude
 
           map.markers = [];
           map.circles = [];
@@ -200,7 +202,7 @@
           };
 
         var requests = [
-          <% ItemsRequest.all.each do |ir| %>
+          <% @items_requests.each do |ir| %>
 
          {
           position: new google.maps.LatLng(<%= ir.request.latitude %>, <%= ir.request.longitude %>),
@@ -245,7 +247,22 @@
             });
 
 
-            var priority = "high";  // TAKE PRIORITY HERE use requests.priority???????
+            // var priority = "high";  // TAKE PRIORITY HERE use requests.priority???????
+
+            var x = Math.random() * 10;
+
+            if (x > 7.5) {
+
+              var priority = "high";
+
+            } else {
+
+              var priority = "low";
+
+            };
+
+            // console.log(priority);
+
 
             map.circles.push(createCircle(marker, priorityHash[priority]));
 
@@ -275,7 +292,9 @@
 
                   // pass this as params[:data_value] in controller
 
-                $('#results').html('<p class="results-text">' + 'ID:  ' + marker.id + '</p>' + '<p class="results-text">' + 'Category:  ' + marker.category + '</p>'
+                $('#results').html(
+                  '<div class="text-center"><p class="results-text-heading">' + 'REQUEST SNAPSHOT' + '</p></div>'
+                  +'<p class="results-text">' + 'ID:  ' + marker.id + '</p>' + '<p class="results-text">' + 'Category:  ' + marker.category + '</p>'
                   + '<p class="results-text">' + 'Address:  ' + marker.address + '</p>'
                   + '<p class="results-text">' + 'Priority:  ' + marker.priority + '</p>'
                   + '<p class="results-text">' + 'Status:  ' + marker.status + '</p>'
@@ -285,7 +304,7 @@
                   // + '<p class="results-text last-pline">' + 'Updated at:  ' + marker.updated_at + '</p>'
                   // + '<%#= button_to "Show Details", user_request_path(' + marker.user_id + ', ' + marker.id + '), class: 'btn btn-primary' %>'
                  + '<div class="button-box">'
-                  + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '"class="btn btn-primary button-show-details"> Show Details </a>'
+                  + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '"class="btn btn-primary button-show-details"> Take Action! </a>'
                   + '</div>'
                   )};
                 // end of displayEachData
@@ -321,6 +340,7 @@
 
         function filterMarkers(hash) {
           //called after doafteronfilterchange
+          // console.log(hash);
           for (i = 0; i < map.markers.length; i++) {
 
             var itemName = map.markers[i].item_name; //
@@ -351,6 +371,7 @@
 
         $('#summary').html('<div class="text-center"><p class="summary-text-heading">' + 'SUMMARY OF REQUESTED ITEMS  ' + '</p></div>');
 
+
             for(var key in summaryMarkersHash) {
              if(summaryMarkersHash.hasOwnProperty(key)) {
 
@@ -370,6 +391,10 @@
         filtersHash[changedBox] = !filtersHash[changedBox];
         filterMarkers(filtersHash);
 
+         console.log(filtersHash);
+         // #####################################
+
+
       };
 
       function onFilterChange() {
@@ -377,6 +402,8 @@
        $('input[name=filter]').change(function () {
 
          var changedBox = $(this).attr('value');
+         console.log(changedBox);
+         // #####################################
 
          doAfterOnFilterChange(changedBox);
 
@@ -393,7 +420,9 @@
             for(var key in filtersHash) {
               if(filtersHash.hasOwnProperty(key)) {
                 filtersHash[key] = true;
-                 doAfterOnFilterChange(filtersHash[key]);
+                doAfterOnFilterChange(filtersHash[key]);
+                console.log(filtersHash)
+                // #####################################
               }
             }
 
@@ -405,6 +434,8 @@
                 if(filtersHash.hasOwnProperty(key)) {
                  filtersHash[key] = false;
                  doAfterOnFilterChange(filtersHash[key]);
+                 console.log(filtersHash)
+                 // #####################################
               }
             }
 
@@ -475,7 +506,7 @@
                 summarizeMarkerDataInitialize();
                 summarizeMarkerData();
                 displaySummaryData();
-                summaryMarkersHash = {}
+                summaryMarkersHash = {};
 
               } else {
 

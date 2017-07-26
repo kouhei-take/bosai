@@ -19,8 +19,17 @@ class RequestsController < ApplicationController
   end
 
   def list
-    
-    @requests = Request.where.not(latitude: nil, longitude: nil)
+   ###Conditonal of Search 0726 by Kouhei #############
+   ####prams[:address] = string, params[:radius] = integer
+   @items_requests = ItemsRequest.all
+   ##Request.where(user: current_user)
+
+    # if params[:latitude] && params[:longitude] && radius
+    #   @requests = Request.near([params[:latitude], params[:longitude]], radius)
+    # else
+    #   @requests = Request.where.not(latitude: nil, longitude: nil)
+    # end
+   ######################################################
 
     @hash = Gmaps4rails.build_markers(@requests) do |request, marker|
       marker.lat request.latitude
