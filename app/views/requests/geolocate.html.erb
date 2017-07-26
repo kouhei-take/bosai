@@ -10,30 +10,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <script type="text/javascript">
-/////////////////////////////////////////////////
+  ///////////////////////////////////////////////// ///////////////////////////////////////////////////// ////////////Draw Map///////////////////////////// //////////////////
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 20000,
+    maximumAge: 0
+  };
 
-/////////////////////////////////////////////////////// ////////////Draw Map/////////////////////////////
-////////////////////
-var options = {
-  enableHighAccuracy: true,
-  timeout: 20000,
-  maximumAge: 0
-};
+  function successGetPosition(position) {
+    //alert("Successfully Got Current Location"); alert("lat:" + position.coords.latitude + ", lng:" + position.coords.longitude);
+    if (navigator.userAgent.match(/Android/i)) {
+      document.location = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+    } else {
+      window.location.href = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+    };
 
-function successGetPosition(position) {
-  //alert("Successfully Got Current Location");
-  //alert("lat:" + position.coords.latitude + ", lng:" + position.coords.longitude);
-  window.location.href = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
-};
+    function failGetPosition() {
+      alert("Failed. Your browser does not support Geolocation.");
+    };
 
-function failGetPosition() {
-  alert("Failed. Your browser does not support Geolocation.");
-};
-
-$(document).on('ready', function () {
-  if (navigator.geolocation) { //Get Current Location
-    navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
-  }
-});
-
+    $(document).on('ready', function () {
+      if (navigator.geolocation) { //Get Current Location
+        navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
+      }
+    });
 </script>
