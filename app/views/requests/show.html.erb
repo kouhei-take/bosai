@@ -113,13 +113,13 @@
     }, function () {
       markers = handler.addMarkers([
         {
-          "lat": "<%= current_user.latitude %>",
-          "lng": "<%= current_user.longitude %>"
+          "lat": "<%= @request.latitude %>",
+          "lng": "<%= @request.longitude %>"
         }
       ]);
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
-      handler.getMap().setCenter(new google.maps.LatLng("<%= current_user.latitude %>", "<%= current_user.longitude %>"));
+      handler.getMap().setCenter(new google.maps.LatLng("<%= @request.latitude %>", "<%= @request.longitude %>"));
       handler.getMap().setZoom(15);
     });
   })
