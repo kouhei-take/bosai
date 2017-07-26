@@ -202,7 +202,7 @@
           };
 
         var requests = [
-          <% @requests.each do |ir| %>
+          <% @items_requests.each do |ir| %>
 
          {
           position: new google.maps.LatLng(<%= ir.request.latitude %>, <%= ir.request.longitude %>),
