@@ -19,6 +19,7 @@ class RequestsController < ApplicationController
   end
 
   def list
+    
     @requests = Request.where.not(latitude: nil, longitude: nil)
 
     @hash = Gmaps4rails.build_markers(@requests) do |request, marker|
