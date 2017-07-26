@@ -51,7 +51,7 @@ end
   {first_name: "Tetsuya", last_name: "Yokoyama", email: 'tetsuya@yokoyama.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5},
   {first_name: "Keisuke", last_name: "Yoshida", email: 'keisuke@yoshida.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5023.1208", organization_id: 5},
   {first_name: "Masanori", last_name: "Ushiki", email: 'masanori@ushiki.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.5402.6734", organization_id: 3},
-  {first_name: "Masanao", last_name: "Matsumoto", email: 'kie@kashiwagi.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5619.8956", organization_id: 3},
+  {first_name: "Masanao", last_name: "Matsumoto", email: 'masanao@matsumoto.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5619.8956", organization_id: 3},
   {first_name: "Kie", last_name: "Kashiwagi", email: 'kie@kashiwagi.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.1298.0091", organization_id: 4},
   {first_name: "Hidei", last_name: "Nagaoka", email: 'hidei@nagaoka.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.2799.0023", organization_id: 4},
   {first_name: "Paul", last_name: "Gaumer", email: 'paul@gaumer.com', password: '123456', address: "2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.9353.0938", organization_id: 1},
@@ -61,8 +61,8 @@ end
   {first_name: "Shinichi", last_name: "Tajitsu", email: 'shinichi@tajitsu.com', password: '123456', address: "Notos Meguro Mansion Apt 5, 1-11-3, Meguro, Meguro-ku, Tokyo 153-0061", phone_number: "080.9354.7638", organization_id: 3},
   {first_name: "Teijira", last_name: "Shintsuka", email: 'teijira@shintsuka.com', password: '123456', address: "Instructors Chair Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.0942", organization_id: 4},
   {first_name: "Hayashide", last_name: "Yamato", email: 'hayashide@yamato.com', password: '123456', address: "Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.1265", organization_id: 1},
-  {first_name: "Tetsuya", last_name: "Yokoyama", email: 'tetsuya@yokoyama.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5},
-  {first_name: "Maika", last_name: "Kaku", email: 'Maika@kaku.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5023.1208", organization_id: 5},
+  {first_name: "Matheus", last_name: "Penchel", email: 'matheus@penchel.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5},
+  {first_name: "Maika", last_name: "Kaku", email: 'maika@kaku.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5023.1208", organization_id: 5},
   {first_name: "Akiko", last_name: "Aijima", email: 'akiko@aijima.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.5402.6734", organization_id: 3},
   {first_name: "Asuka", last_name: "Tasaka", email: 'asuka@tasaka.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5619.8956", organization_id: 3}
 ].each do |user_params|
