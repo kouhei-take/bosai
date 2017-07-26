@@ -119,7 +119,7 @@
       ]);
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
-      handler.getMap().setCenter(new google.maps.LatLng("<%= @request.latitude %>", "<%= @request.longitude %>"));
+      handler.getMap().setCenter(new google.maps.LatLng("<%= current_user.latitude %>", "<%= current_user.longitude %>"));
       handler.getMap().setZoom(15);
     });
   })
