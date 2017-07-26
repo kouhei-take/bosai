@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-6">
       <h2>Request Information</h2>
       <table class="table table-striped table-responsive">
-        
+
         <tr>
           <th>Items</th>
           <td>
@@ -113,8 +113,8 @@
     }, function () {
       markers = handler.addMarkers([
         {
-          "lat": "<%= @request.latitude %>",
-          "lng": "<%= @request.longitude %>"
+          "lat": "<%= current_user.latitude %>",
+          "lng": "<%= current_user.longitude %>"
         }
       ]);
       handler.bounds.extendWith(markers);
