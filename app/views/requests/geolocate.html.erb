@@ -20,9 +20,9 @@
   function successGetPosition(position) {
     //alert("Successfully Got Current Location"); alert("lat:" + position.coords.latitude + ", lng:" + position.coords.longitude);
     if (navigator.userAgent.match(/Android/i)) {
-      document.location = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+      location = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
     } else {
-      window.location.href = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+      location = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
     };
   };
 
