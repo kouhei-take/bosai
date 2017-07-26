@@ -9,13 +9,37 @@
         <form class="form-inline">
           <input type="text" id="radius" name="radius" placeholder="Enter KM" class="form-control km-entry" style="width: 100px;">
           <input type="text" id="address" name="address" placeholder="Point or Enter Address" class="form-control" style="width: 250px;">
-          <input type="submit" value="Search" class="btn btn-primary btn-bordered btn-bordered-primary" style="background-color: blue; border: none;">
+          <input type="submit" value="Search" class="btn btn-primary btn-bordered btn-bordered-primary button-search" >
         </form>
 
       </div>
       <div id="results">
         <div id="results-button">
         </div>
+
+      </div>
+
+        <div id="summary">
+        <div id="summary-button">
+        </div>
+
+      </div>
+
+       </div>
+
+      <!-- <div class="modal hide fade" id="modalwindow">
+        <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+           <h3>Title</h3>
+      </div>
+      <div class="modal-body">
+        <p>You need to search on google for that.</p>
+      </div>
+      <div class="modal-footer">
+        <a id="closemodal" href="https://www.google.com" class="btn btn-primary" target="_blank">Launch google.com</a>
+      </div>
+    </div> -->
+
 
       </div>
       <!-- put in link to the next page -->
@@ -178,15 +202,15 @@
         var requests = [
           <% ItemsRequest.all.each do |ir| %>
 
-
          {
           position: new google.maps.LatLng(<%= ir.request.latitude %>, <%= ir.request.longitude %>),
           category: '<%= ir.request.category %>', id: <%= ir.request.id %>, user_id: <%= ir.request.user_id %>, address: '<%= ir.request.address %>', priority: '<%= ir.request.priority %>', status: '<%= ir.status %>', created_at: '<%= ir.created_at %>', updated_at: '<%= ir.updated_at %>', item_name: '<%= ir.item.name %>', quantity: <%= ir.quantity %>, item_id: '<%= ir.item.id %>'
         },
-
           <% end %>
           ];
           // end of requests assignment
+
+
           function createCircle(marker, priorityRadius) {
             var circle = new google.maps.Circle({
                 center: marker.position,
@@ -220,16 +244,12 @@
               // label: labels[i % labels.length]
             });
 
-            var priority = "high";  // TAKE PRIORITY HERE
+
+            var priority = "high";  // TAKE PRIORITY HERE use requests.priority???????
 
             map.circles.push(createCircle(marker, priorityHash[priority]));
 
             // createdpushes circles into array
-
-
-            // console.log(marker.map);
-// var map = map;
-
 
              // circle.bindTo('center',marker[index],'position');
 
@@ -262,9 +282,11 @@
                    + '<p class="results-text">' + 'Item:  ' + marker.item_name + '</p>'
                     + '<p class="results-text">' + 'Quantity:  ' + marker.quantity + '</p>'
                   + '<p class="results-text">' + 'Created at:  ' + marker.created_at + '</p>'
-                  + '<p class="results-text">' + 'Updated at:  ' + marker.updated_at + '</p>'
+                  // + '<p class="results-text last-pline">' + 'Updated at:  ' + marker.updated_at + '</p>'
                   // + '<%#= button_to "Show Details", user_request_path(' + marker.user_id + ', ' + marker.id + '), class: 'btn btn-primary' %>'
-                  + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '" class="btn btn-primary" style="background-color:green;"> Show Details </a>'
+                 + '<div class="button-box">'
+                  + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '"class="btn btn-primary button-show-details"> Show Details </a>'
+                  + '</div>'
                   )};
                 // end of displayEachData
 
@@ -273,13 +295,14 @@
 
               displayEachData();
 
-               $('#results').toggle()
+               $('#results').toggle(400);
+
             });
             // end of addListener click
 
             return marker;
-   }
-    // end of createMarker
+           };
+            // end of createMarker
 
       for (i = 0; i < requests.length; i++) {
         map.markers.push(createMarker(i));
@@ -289,11 +312,6 @@
       //       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
       // this is for clustering.. need to load marketclusterer
 
-  // console.log(markers.map)
-
-
-        // console.log(markers);
-        // callback();
         callback();
       }
        // END OF INITMAP end of init map
@@ -302,55 +320,183 @@
         //set initial value of checkboxes
 
         function filterMarkers(hash) {
-
+          //called after doafteronfilterchange
           for (i = 0; i < map.markers.length; i++) {
 
             var itemName = map.markers[i].item_name; //
 
             if ( hash[itemName] == true ) {
-              console.log(hash);
-              console.log(itemName);
-              console.log(map.markers[i].id);
+
               map.markers[i].setMap(null);
-              console.log(map.markers[i].map);
-              // map.circles[0].setVisible(false);
               // map.markers[i].setVisible(false);
               // delete map.markers[i];
-              console.log(map.markers)
-               // delete map.circles[0];
-              console.log("true");
               map.circles[i].setMap(null);
 
           } else {
 
             map.markers[i].setMap(map);
             map.circles[i].setMap(map);
-            // console.log("false");
 
           };
         };
       };
         //end of filterMarkers
 
-      function onFilterChange() {
-       $('input[name=filter]').change(function () {
-        var changedBox = $(this).attr('value');
+       // create array of markers based on filtered results
+       var summaryMarkersHash = {}
+
+       function displaySummaryData() {
+
+                // pass this as params[:data_value] in controller
+
+        $('#summary').html('<div class="text-center"><p class="summary-text-heading">' + 'SUMMARY OF REQUESTED ITEMS  ' + '</p></div>');
+
+            for(var key in summaryMarkersHash) {
+             if(summaryMarkersHash.hasOwnProperty(key)) {
+
+                $('#summary').append('<p class="summary-text">' + key.charAt(0).toUpperCase() + key.slice(1) + ':  ' + summaryMarkersHash[key] + '</p>'
+                );
+
+              };
+            };
+
+        $('#summary').append('<div class="button-box"><a href=""class="btn btn-primary button-show-summary"> Do Something About it! </a></div>');
+
+        };
+
+
+      function doAfterOnFilterChange(changedBox) {
+
         filtersHash[changedBox] = !filtersHash[changedBox];
-        // console.log(changedBox);
-        // console.log(filtersHash[changedBox]);
-         filterMarkers(filtersHash);
+        filterMarkers(filtersHash);
+
+      };
+
+      function onFilterChange() {
+
+       $('input[name=filter]').change(function () {
+
+         var changedBox = $(this).attr('value');
+
+         doAfterOnFilterChange(changedBox);
 
         });
+       //end of .change
+
+          $('.button-uncheckall').click(function(){
+
+            if($('.filter-checkbox').prop('checked') == true) {
+              $('.filter-checkbox').prop('checked',false);
+              $(this).html('Check all');
+
+
+            for(var key in filtersHash) {
+              if(filtersHash.hasOwnProperty(key)) {
+                filtersHash[key] = true;
+                 doAfterOnFilterChange(filtersHash[key]);
+              }
+            }
+
+            } else {
+              $('.filter-checkbox').prop('checked',true);
+              $(this).html('Uncheck all');
+
+              for(var key in filtersHash) {
+                if(filtersHash.hasOwnProperty(key)) {
+                 filtersHash[key] = false;
+                 doAfterOnFilterChange(filtersHash[key]);
+              }
+            }
+
+            }
+          });
+          //end of .click
+
       };
       // get value of checkbox
 
-
-     // function markerLength() {
-     //  console.log(map.markers.length);
-
-     // };
-
       initMap(onFilterChange);
+
+        $(document).ready(function() {
+          $("#results").hide();
+          $("#summary").hide();
+
+
+
+
+        function summarizeMarkerDataInitialize() {
+
+            map.markers.forEach(function(marker){
+
+              if (filtersHash[marker.item_name] == false) {
+
+                summaryMarkersHash[marker.item_name] = 0;
+
+                  };
+                 });
+
+            // console.log(summaryMarkersHash);
+          };
+
+
+
+          function summarizeMarkerData() {
+
+            map.markers.forEach(function(marker){
+
+              if (filtersHash[marker.item_name] == false) {
+
+                 // console.log(marker.item_name);
+                 //  console.log(marker.quantity);
+
+                summaryMarkersHash[marker.item_name] += marker.quantity;
+
+                  };
+
+                 });
+
+            // console.log(summaryMarkersHash);
+          };
+
+            $(".button-summarize").html('Summarize');
+
+
+            $(".button-summarize").click(function(){
+
+              var buttonText = $(".button-summarize").html();
+
+              // console.log(buttonText.trim());
+              // console.log(buttonText == "Summarize");
+
+              if (buttonText == "Summarize") {
+
+                $(".button-summarize").html('Hide Summary');
+                $('#summary').show(400);
+                summarizeMarkerDataInitialize();
+                summarizeMarkerData();
+                displaySummaryData();
+                summaryMarkersHash = {}
+
+              } else {
+
+                $(".button-summarize").html('Summarize');
+                $('#summary').hide(400);
+
+              };
+
+          });
+
+              // %(map).click(function(){
+              //   $('#results').hide()
+              //  });
+
+
+
+
+
+
+        });
+        // end of on document ready
 
       </script>
       <!-- end of map script -->
@@ -363,13 +509,7 @@
 
       <%#= javascript_include_tag "https://maps.google.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
 
-      <script>
 
-        $(document).ready(function() {
-          $("#results").hide();
-        });
-
-      </script>
 
       <script>
        function toggleChevron(e) {
@@ -383,3 +523,4 @@
       </script>
     </script>
     <% end %>
+
