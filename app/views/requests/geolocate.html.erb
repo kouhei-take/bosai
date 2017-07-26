@@ -26,8 +26,8 @@
     };
   };
 
-  function failGetPosition() {
-    alert("Failed. Your browser does not support Geolocation.");
+  function failGetPosition(failure) {
+    alert(failure.message);
   };
 
   $(document).on('ready', function () {
