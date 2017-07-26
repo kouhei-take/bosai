@@ -59,7 +59,7 @@
         function initMap(callback) {
             map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
-            center: new google.maps.LatLng(<%= @requests.first.latitude %>, <%= @requests.first.longitude %>),
+            center: new google.maps.LatLng(<%= @items_requests.first.request.latitude %>, <%= @items_requests.first.request.longitude %>),
             mapTypeId: 'roadmap'
           });
 
