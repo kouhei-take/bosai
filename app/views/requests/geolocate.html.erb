@@ -13,30 +13,25 @@
   ///////////////////////////////////////////////// ///////////////////////////////////////////////////// ////////////Draw Map///////////////////////////// //////////////////
   var options = {
     enableHighAccuracy: true,
-    timeout: 10000,
-    maximumAge: 10000
+    timeout: 20000,
+    maximumAge: 0
   };
 
   function successGetPosition(position) {
-    alert("ok");
     //alert("Successfully Got Current Location"); alert("lat:" + position.coords.latitude + ", lng:" + position.coords.longitude);
     if (navigator.userAgent.match(/Android/i)) {
-      location = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+      document.location = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
     } else {
-      location = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+      window.location.href = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
     };
   };
 
   function failGetPosition(failure) {
-    if(failure.message.indexOf("Only secure origins are allowed") == 0) {
-      alert("https");
-    }
-    alert(failure.message);
+    alert(faliure.message);
   };
 
   $(document).on('ready', function () {
     if (navigator.geolocation) { //Get Current Location
-        alert("start");
       navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
     }
   });
