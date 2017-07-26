@@ -61,7 +61,6 @@ end
   end
 end
 
-
 Item.create!(name: "fire")      # item id 1
 Item.create!(name: "medical") #2
 Item.create!(name: "heavy")  #3
@@ -75,7 +74,46 @@ Item.create!(name: "food")      #10
 Item.create!(name: "clothing")   #11
 Item.create!(name: "rescue")   #12
 
-# Original seed requests with Geo coordinates that Chikara has been testing against
+Request.create(user_id: 1, category: "supplies", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
+Request.create(user_id: 2, category: "fire", address: "A place closer to meguro-ku", latitude: 35.633842, longitude: 139.708226, status: "open", priority: "high")
+Request.create(user_id: 3, category: "rescue", address: "Near Naka Meguro station", latitude: 35.631869, longitude: 139.706703, status: "open", priority: "high")
+Request.create(user_id: 4, category: "supplies", address: "Down in the meguro river", latitude: 35.633281, longitude: 139.701854, status: "open", priority: "low")
+Request.create(user_id: 5, category: "fire", address: "Meguro Police station", latitude: 35.638635, longitude: 139.708012, status: "open", priority: "high")
+Request.create(user_id: 6, category: "medical", address: "Bldg opposite Meguro kuyakusho", latitude: 35.632758, longitude: 139.713752, status: "open", priority: "high")
+Request.create(user_id: 7, category: "supplies", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
+Request.create(user_id: 8, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
+
+# user=4 requires relief - tents and water
+ItemsRequest.create(item_id: 6, request_id: 4, quantity: 5, status: "open")
+ItemsRequest.create(item_id: 9, request_id: 4, quantity: 25, status: "open")
+# user=1 requires rescue help/volunteer AND tents, blankets
+ItemsRequest.create(item_id: 3, request_id: 3, quantity: 6, status: "open")
+ItemsRequest.create(item_id: 6, request_id: 3, quantity: 4, status: "open")
+ItemsRequest.create(item_id: 7, request_id: 3, quantity: 20, status: "open")
+# user=2 requires fire help
+ItemsRequest.create(item_id: 1, request_id: 2, quantity: 1, status: "open")
+# user=3 requires water, food, he's still in his apt bldg
+ItemsRequest.create(item_id: 9, request_id: 1, quantity: 35, status: "open")
+ItemsRequest.create(item_id: 10, request_id: 1, quantity: 5, status: "open")
+# user=5 had a medical emergency
+ItemsRequest.create(item_id: 2, request_id: 6, quantity: 1, status: "open")
+# user=6 had a medical emergency which has been dealt with
+ItemsRequest.create(item_id: 2, request_id: 5, quantity: 1, status: "open")
+# user=7 requests mutiple things of which some have been proivded
+ItemsRequest.create(item_id: 5, request_id: 7, quantity: 24, status: "open")
+ItemsRequest.create(item_id: 6, request_id: 7, quantity: 6, status: "open")
+ItemsRequest.create(item_id: 7, request_id: 7, quantity: 6, status: "open")
+ItemsRequest.create(item_id: 9, request_id: 7, quantity: 12, status: "open")
+# user=8 requests mutiple things of which some have been proivded
+ItemsRequest.create(item_id: 10, request_id: 8, quantity: 2, status: "open")
+ItemsRequest.create(item_id: 7, request_id: 8, quantity: 10, status: "open")
+ItemsRequest.create(item_id: 4, request_id: 8, quantity: 5, status: "open")
+ItemsRequest.create(item_id: 6, request_id: 8, quantity: 30, status: "open")
+
+
+puts 'seed end'
+
+# Original seed requests with Geo coordinates that Chikara has been testing against until WED 26th
 #
 # request = Request.new(user_id: 1, category: "supplies", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
 # request.save
@@ -96,65 +134,3 @@ Item.create!(name: "rescue")   #12
 # request.save
 
 
-Request.create(user_id: 1, category: "supplies", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
-Request.create(user_id: 2, category: "fire", address: "A place closer to meguro-ku", latitude: 35.633842, longitude: 139.708226, status: "open", priority: "high")
-Request.create(user_id: 3, category: "rescue", address: "Near Naka Meguro station", latitude: 35.631869, longitude: 139.706703, status: "open", priority: "high")
-Request.create(user_id: 4, category: "supplies", address: "Down in the meguro river", latitude: 35.633281, longitude: 139.701854, status: "open", priority: "low")
-Request.create(user_id: 5, category: "fire", address: "Meguro Police station", latitude: 35.638635, longitude: 139.708012, status: "closed", priority: "high")
-# REQUEST #6 below
-Request.create(user_id: 6, category: "medical", address: "Bldg opposite Meguro kuyakusho", latitude: 35.632758, longitude: 139.713752, status: "closed", priority: "high")
-Request.create(user_id: 7, category: "supplies", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
-Request.create(user_id: 8, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
-
-
-
-# ITEMS_REQUESTS data population
-# user=4 requires relief - tents and water
-items_request = ItemsRequest.new(item_id: 4, request_id: 4, quantity: 5, status: "open")
-items_request.save
-items_request = ItemsRequest.new(item_id: 6, request_id: 4, quantity: 25, status: "open")
-items_request.save
-# user=1 requires rescue help/volunteer AND tents, blankets
-items_request = ItemsRequest.new(item_id: 1, request_id: 3, quantity: 6, status: "open")
-items_request.save
-items_request = ItemsRequest.new(item_id: 4, request_id: 3, quantity: 4, status: "open")
-items_request.save
-items_request = ItemsRequest.new(item_id: 10, request_id: 3, quantity: 20, status: "open")
-items_request.save
-# user=2 requires fire help
-items_request = ItemsRequest.new(item_id: 9, request_id: 2, quantity: 1, status: "open")
-items_request.save
-# user=3 requires water, rice, miso, he's still in his apt bldg
-items_request = ItemsRequest.new(item_id: 10, request_id: 1, quantity: 35, status: "open")
-items_request.save
-items_request = ItemsRequest.new(item_id: 7, request_id: 1, quantity: 5, status: "open")
-items_request.save
-items_request = ItemsRequest.new(item_id: 8, request_id: 1, quantity: 3, status: "open")
-items_request.save
-# user=5 had a medical emergency which has been dealt with
-items_request = ItemsRequest.new(item_id: 10, request_id: 6, quantity: 1, status: "closed")
-items_request.save
-# user=6 had a medical emergency which has been dealt with
-items_request = ItemsRequest.new(item_id: 12, request_id: 5, quantity: 1, status: "closed")
-items_request.save
-# user=7 requests mutiple things of which some have been proivded
-items_request = ItemsRequest.new(item_id: 6, request_id: 7, quantity: 24, status: "closed")
-items_request.save
-items_request = ItemsRequest.new(item_id: 7, request_id: 7, quantity: 6, status: "closed")
-items_request.save
-items_request = ItemsRequest.new(item_id: 3, request_id: 7, quantity: 6, status: "open")
-items_request.save
-items_request = ItemsRequest.new(item_id: 5, request_id: 7, quantity: 12, status: "open")
-items_request.save
-# user=8 requests mutiple things of which some have been proivded
-items_request = ItemsRequest.new(item_id: 10, request_id: 8, quantity: 2, status: "closed")
-items_request.save
-items_request = ItemsRequest.new(item_id: 2, request_id: 8, quantity: 10, status: "closed")
-items_request.save
-items_request = ItemsRequest.new(item_id: 7, request_id: 8, quantity: 5, status: "open")
-items_request.save
-items_request = ItemsRequest.new(item_id: 8, request_id: 8, quantity: 30, status: "open")
-items_request.save
-
-
-puts 'seed end'
