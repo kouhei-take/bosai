@@ -2,67 +2,198 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6">
 
-<!-- Trying go implement the function to get current location -->
-<!-- Trying go implement the function to get current location -->
 
-      <h2>Your Information</h2>
+<!-- UPPER CONTAINER START -->
 
-      <table class="table table-striped table-responsive">
-        <tr>
-          <th>Name</th>
-          <td><%= current_user.first_name.capitalize + " " + current_user.last_name.capitalize %>
-          </td>
-        </tr>
-        <tr>
-          <th>Contact</th>
-          <td><%= current_user.email  %></td>
-        </tr>
-        <tr>
-          <th>Address</th>
-          <td><%= current_user.address.nil? ? "n/a" : current_user.address %></td>
-        </tr>
-        <tr>
-          <th>
-                <div><%= button_tag(type: 'button', class: "currentLocation") do
-          content_tag(:strong, 'Get Current Location!') end %>
-              </div>
-            </th>
-        </tr>
-        <tr>
-          <th>Phone Number</th>
-          <td><%= current_user.phone_number.nil? ? "n/a" : current_user.phone_number %></td>
-        </tr>
-        <tr>
-          <th>Organization</th>
-          <td><%= current_user.organization.nil? ? "n/a" : current_user.organization.name %></td>
-        </tr>
-        <tr>
-          <th>Evacuation Point</th>
-          <td><%= current_user.evacuation_point.nil? ? "n/a" : current_user.evacuation_point.name %></td>
-        </tr>
-      </table>
-      <br>
+<div class="container text-center padded features">
+  <div class="row">
 
-      <%= link_to 'Edit Your Information', edit_user_registration_path, class: "btn-lg btn-primary btn-text pull-right"  %>
+    <!-- USER PROFILE -->
+    <div class="col-xs-12 col-sm-6">
+      <p class="h2">Your Profile</p>
+      <div>
+        <table class="table table-hover table-condensed">
+          <tr>
+            <th>Name</th>
+            <td><%= current_user.first_name.capitalize + " " + current_user.last_name.capitalize %>
+            </td>
+          </tr>
+          <tr>
+            <th>Contact</th>
+            <td><%= current_user.email  %></td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td><%= current_user.address.nil? ? "n/a" : current_user.address %></td>
+            <!-- <td><%#= button_tag(type: 'button', class: "currentLocation") do
+          content_tag(:strong, 'Get Current Location!') end %></td> -->
+          </tr>
+          <tr>
+            <th>Phone Number</th>
+            <td><%= current_user.phone_number.nil? ? "n/a" : current_user.phone_number %></td>
+          </tr>
+          <tr>
+            <th>Organization</th>
+            <td><%= current_user.organization.nil? ? "n/a" : current_user.organization.name %></td>
+          </tr>
+          <tr>
+            <th>Evacuation Point</th>
+            <td><%= current_user.evacuation_point.nil? ? "n/a" : current_user.evacuation_point.name %></td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <%= link_to 'Edit Your Information', edit_user_registration_path, class:"btn btn-lg btn-text-small btn-primary btn-block" %>
+      </div>
+    </div>
+
+    <!-- GOOGLE MAP -->
+    <div class="col-xs-12 col-sm-6">
+      <p class="h2">Your Location</p>
+      <div id="map2" style="width:100%; height:400px;"></div>
+    </div>
+
+  <!-- End of row with Profile and Map -->
+  </div>
+<!-- End of Container -->
+</div>
+
+
+<!-- BOTTOM CONTAINER START -->
+
+<div class="container text-center padded features">
+  <div class="row">
+    <!-- <div><p class="h2">Your Requests</p></div> -->
+    <!-- USER REQUESTS -->
+    <div class="col-xs-12 col-sm-6">
+      <p class="h2">Your Requests</p>
+      <div class="wrapper-aqua">
+        <p class="h4">Enter Your Request</p>
+        <div>
+         <%= link_to 'Create New Request', new_user_request_path(current_user), class:"btn btn-lg btn-text-small btn-warning btn-lg" %>
+        </div>
+        <div> </div>
+      </div>
+      <div>
+        <table class="table table-hover table-condensed">
+          <tr>
+            <th>Name</th>
+            <td><%= current_user.first_name.capitalize + " " + current_user.last_name.capitalize %>
+            </td>
+          </tr>
+          <tr>
+            <th>Contact</th>
+            <td><%= current_user.email  %></td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td><%= current_user.address.nil? ? "n/a" : current_user.address %></td>
+          </tr>
+          <tr>
+            <th>Phone Number</th>
+            <td><%= current_user.phone_number.nil? ? "n/a" : current_user.phone_number %></td>
+          </tr>
+          <tr>
+            <th>Organization</th>
+            <td><%= current_user.organization.nil? ? "n/a" : current_user.organization.name %></td>
+          </tr>
+          <tr>
+            <th>Evacuation Point</th>
+            <td><%= current_user.evacuation_point.nil? ? "n/a" : current_user.evacuation_point.name %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  <!-- End of row with Requests -->
+  </div>
+<!-- End of Container -->
+</div>
+
+
+
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+<!-- OLD SOURCE -->
+
+<div>
+  <h2 class="text-center">Your Information</h2>
+</div>
+
+  <!-- USER PROFILE TEST Sou July25 -->
+<div>
+  <table class="table table-hover table-condensed">
+    <tr>
+      <th>Name</th>
+      <td><%= current_user.first_name.capitalize + " " + current_user.last_name.capitalize %>
+      </td>
+    </tr>
+    <tr>
+      <th>Contact</th>
+      <td><%= current_user.email  %></td>
+    </tr>
+    <tr>
+      <th>Address</th>
+      <td><%= current_user.address.nil? ? "n/a" : current_user.address %></td>
+    </tr>
+    <tr>
+      <th>Phone Number</th>
+      <td><%= current_user.phone_number.nil? ? "n/a" : current_user.phone_number %></td>
+    </tr>
+    <tr>
+      <th>Organization</th>
+      <td><%= current_user.organization.nil? ? "n/a" : current_user.organization.name %></td>
+    </tr>
+    <tr>
+      <th>Evacuation Point</th>
+      <td><%= current_user.evacuation_point.nil? ? "n/a" : current_user.evacuation_point.name %></td>
+    </tr>
+  </table>
+</div>
+
+<!-- EDIT INFORMATION -->
+      <%= link_to 'Edit Your Information', edit_user_registration_path, class: "btn btn-lg btn-text-small btn-primary btn-block"  %>
+>>>>>>> updating user profile page design with SCSS files
 
     </div>
 
     <div class="col-xs-12 col-sm-6">
-      <h3>Map</h3>
+      <!-- <h3>Map</h3> -->
       <div id="map2" style="width:100%; height:400px;"></div>
     </div>
   </div>
 
+
+
+
   <hr style="border-top: 1px solid black;">
 
+
+
+<!-- CREATE REQUEST -->
   <div class="row">
     <div class="col-xs-12 col-sm-6">
 
-      <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn-lg btn-primary btn-text pull-right" %>
-
-      <h2>Your Requests</h2>
+      <%= link_to 'Create New Request', new_user_request_path(current_user), class: "btn-lg btn-primary btn-text-small pull-right" %>
 
 
+
+
+
+
+<!-- REQUESTS LISTS -->
+      <!-- <h2>Your Requests</h2> -->
       <% i = 1 %>
       <% @requests.each do |r| %>
         <div class="col-xs-6 col-sm-6">
@@ -103,13 +234,15 @@
 
     <div class="col-xs-12 col-sm-6">
 
-      <h2>Provide Help</h2>
+<!-- PROVIDE HELP BUTTON -->
+<!-- Sou July26 -->
+<!--       <h2>Provide Help</h2>
       <form action="/requests/list" class="navbar-wagon-search pull-left">
         <input type="text" name="area" class="navbar-wagon-search-input" placeholder="Search Area">
         <button type="submit" class="navbar-wagon-search-btn">
           <i class="fa fa-search"></i>
         </button>
-      </form>
+      </form> -->
     </div>
   </div>
 </div>
