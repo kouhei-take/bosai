@@ -41,9 +41,8 @@ class RequestsController < ApplicationController
   def create
     @request = Request.new(strong_params_request)
     @request.user = current_user
-    @request.longitude = current_user.longitude
-    @request.latitude = current_user.latitude
-    if @request.save
+
+    if @request.save!
       redirect_to user_request_items_requests_path(current_user.id, @request.id)
     end
   end
@@ -63,7 +62,7 @@ class RequestsController < ApplicationController
   private
 
   def strong_params_request
-    params.require(:request).permit(:category, :address, :priority, :user_id, :longitude, :latitude, :text, :status)
+    params.require(:request).permit(:category, :address, :priority, :user_id, :longitude, :latitude, :text, :status, items_requests_attributes: [:id, :quantity, :item_id, :request_id, :status, :_destroy])
   end
 
 end

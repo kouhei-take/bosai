@@ -10,7 +10,7 @@ class ItemsRequestsController < ApplicationController
   end
 
   def create
-    @items_request = ItemsRequest.new(strong_params_items_request)
+    @items_request = ItemsRequest.new(strong_params_items_requests)
     @items_request.request = Request.find(params[:request_id]) ##########
     if @items_request.save!
       redirect_to user_request_items_requests_path(current_user, params[:request_id])
@@ -26,7 +26,7 @@ class ItemsRequestsController < ApplicationController
   def delete
   end
 
-  def strong_params_items_request
-    params.require(:items_request).permit(:item_id, :quantity, :status, :request, :address)
+  def strong_params_items_requests
+    params.require(:items_request).permit(:item_id, :quantity, :status, :request_id, :address)
   end
 end

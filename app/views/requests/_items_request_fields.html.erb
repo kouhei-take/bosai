@@ -1,0 +1,9 @@
+<div class="nested-fields">
+  <div class="field">
+    <%= link_to_remove_association 'Remove', f, {class: "btn-info pull-right", style: "position: relative; top: -10px;" } %>
+    <%= f.association :item %>
+    <%= f.input :quantity %>
+    <br>
+    <br>
+  </div>
+</div>
