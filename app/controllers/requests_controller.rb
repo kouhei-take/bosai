@@ -43,8 +43,9 @@ class RequestsController < ApplicationController
     @request.user = current_user
 
     if @request.save!
-      redirect_to user_request_items_requests_path(current_user.id, @request.id)
+      redirect_to user_request_path(current_user.id, @request.id)
     end
+
   end
 
   def update
