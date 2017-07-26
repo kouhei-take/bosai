@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725074011) do
+ActiveRecord::Schema.define(version: 20170726065528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20170725074011) do
     t.integer  "item_id"
     t.integer  "request_id"
     t.string   "quantity"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "status",     default: "open"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["item_id"], name: "index_items_requests_on_item_id", using: :btree
     t.index ["request_id"], name: "index_items_requests_on_request_id", using: :btree
   end
@@ -67,10 +67,10 @@ ActiveRecord::Schema.define(version: 20170725074011) do
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "status"
+    t.string   "status",     default: "open"
     t.string   "priority"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.text     "text"
     t.index ["user_id"], name: "index_requests_on_user_id", using: :btree
   end
