@@ -8,6 +8,7 @@ class RequestsController < ApplicationController
       user.latitude = params[:lat]
       user.longitude = params[:lng]
       user.save!
+      #To Do: Write
     end
   end
 
@@ -19,24 +20,37 @@ class RequestsController < ApplicationController
   end
 
   def list
-   ###Conditonal of Search 0726 by Kouhei #############
-   ####prams[:address] = string, params[:radius] = integer
-   @items_requests = ItemsRequest.joins(:request).where.not(requests: {longitude: nil, latitude: nil} )
-   ##Request.where(user: current_user)
+   ## 0726 by Kouhei
+   ## In order to use parameters in view again, It can be used also in the view page.
+   @radius = params[:radius]
 
-    # if params[:latitude] && params[:longitude] && radius
-    #   @requests = Request.near([params[:latitude], params[:longitude]], radius)
-    # else
-    #   @requests = Request.where.not(latitude: nil, longitude: nil)
-    # end
-   ######################################################
+   ## 0726 by Kouhei
+   ## Below is code for map
+   temp = ItemsRequest.joins(:request).where.not(requests: {latitude: nil, longitude: nil} )
 
-    @hash = Gmaps4rails.build_markers(@requests) do |request, marker|
-      marker.lat request.latitude
-      marker.lng request.longitude
-      marker.picture ActionController::Base.helpers.image_url('fire_image.png')
-      # marker.infowindow render_to_string(partial: "/requests/map_box", locals: { request: request })
-     end
+    if params[:address] != ""
+
+      if @radius == ""
+        radius = 20  ## I set the default value (No explicit radious case) to 20 Km
+      else
+        radius = @radius
+      end
+
+    nearby = Request.near(params[:address], radius, select: "*")
+    @items_requests = temp.joins(:request).merge(nearby)
+
+    else
+      @items_requests = temp
+    end
+
+    ## 0726 by Kouhei
+    ## Below code is not used now. For perfomance improvement, I coomennted out.
+    # @hash = Gmaps4rails.build_markers(@requests) do |request, marker|
+    #   marker.lat request.latitude
+    #   marker.lng request.longitude
+    #   marker.picture ActionController::Base.helpers.image_url('fire_image.png')
+    #   # marker.infowindow render_to_string(partial: "/requests/map_box", locals: { request: request })
+    #  end
   end
 
   def edit
