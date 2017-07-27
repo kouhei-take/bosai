@@ -12,11 +12,18 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :address, :organization_id, :phone_number, :email])
   end
 
+  # Sou July27
+  def default_url_options
+    { host: ENV["HOST"] || "localhost:3000" }
+  end
+
   private
 
   # override the devise helper to store the current location so we can
   # redirect to it after loggin in or out. This override makes signing in
   # and signing up work automatically.
+
+
   def store_current_location
     store_location_for(:user, request.url)
   end
