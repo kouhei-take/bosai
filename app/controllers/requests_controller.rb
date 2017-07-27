@@ -8,9 +8,9 @@ class RequestsController < ApplicationController
       user.save!
       #To Do: Write
     end
-  
+
     #######################################
-    if current_user.latitude == nil
+    if current_user.latitude == nil && params[:false] != 1
       redirect_to requests_geolocate_path
     end
     ########################################
