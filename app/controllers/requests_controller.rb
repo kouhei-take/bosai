@@ -11,7 +11,7 @@ class RequestsController < ApplicationController
 
     #######################################
     if current_user.latitude == nil && params[:fail].to_i != 1
-      ##redirect_to requests_geolocate_path ## skipped for now
+      redirect_to requests_geolocate_path ## skipped for now
     end
     ########################################
     @requests = Request.where(user: current_user)
