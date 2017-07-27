@@ -14,18 +14,15 @@
 
       </div>
       <div id="results">
-        <div id="results-button">
-        </div>
 
       </div>
 
         <div id="summary">
-        <div id="summary-button">
-        </div>
 
       </div>
 
        </div>
+
 
       <!-- <div class="modal hide fade" id="modalwindow">
         <div class="modal-header">
@@ -293,19 +290,32 @@
                   // pass this as params[:data_value] in controller
 
                 $('#results').html(
-                  '<div class="text-center"><p class="results-text-heading">' + 'REQUEST SNAPSHOT' + '</p></div>'
-                  +'<p class="results-text">' + 'ID:  ' + marker.id + '</p>' + '<p class="results-text">' + 'Category:  ' + marker.category + '</p>'
-                  + '<p class="results-text">' + 'Address:  ' + marker.address + '</p>'
-                  + '<p class="results-text">' + 'Priority:  ' + marker.priority + '</p>'
-                  + '<p class="results-text">' + 'Status:  ' + marker.status + '</p>'
-                   + '<p class="results-text">' + 'Item:  ' + marker.item_name + '</p>'
-                    + '<p class="results-text">' + 'Quantity:  ' + marker.quantity + '</p>'
-                  + '<p class="results-text">' + 'Created at:  ' + marker.created_at + '</p>'
+
+                  '<div class="text-center heading-box align-middle"><h3 class="results-text-heading">' + 'Request Snapshot' + '</h3></div>'
+                    + '<p class="results-text first-p">' + 'Item:  ' + marker.item_name.charAt(0).toUpperCase() + marker.item_name.slice(1) + '</p>'
+                    + '<p class="results-text">' + 'Quantity:  ' + marker.quantity + '</p>' + '<p class="results-text">'
+                     + '<p class="results-text">' + 'Address: '  + marker.address +  '</p>'
+                    + '<p class="results-text">' + 'Status:  ' + marker.status.charAt(0).toUpperCase() + marker.status.slice(1) + '</p>'
+                    + '<p class="results-text">' + 'Priority:  ' + marker.priority.charAt(0).toUpperCase() + marker.priority.slice(1) + '</p>'
+                    + '<p class="results-text">' + 'Category:  ' + marker.category.charAt(0).toUpperCase() + marker.category.slice(1) + '</p>'
+
+                    + '<p class="results-text">' + 'Created at:  ' + marker.created_at + '</p>' + '<p class="results-text">' + 'ID:  ' + marker.id + '</p>'
                   // + '<p class="results-text last-pline">' + 'Updated at:  ' + marker.updated_at + '</p>'
                   // + '<%#= button_to "Show Details", user_request_path(' + marker.user_id + ', ' + marker.id + '), class: 'btn btn-primary' %>'
-                 + '<div class="button-box">'
-                  + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '"class="btn btn-primary button-show-details"> Take Action! </a>'
-                  + '</div>'
+                    + '<div class="button-box">'
+                    + '<a href="/users/' + marker.user_id + '/requests/' + marker.id + '"class="btn btn-primary button-show-details"> Take Action! </a>'
+                 //  + '</div>'
+// + '<table style="width=100%">' +
+
+//        + '<tr>'
+//         + '<td>ID:</td>'
+//          + '<td>' + marker.id + '</td>'
+//       + '</tr>'
+
+//       + '</table>'
+
+
+
                   )};
                 // end of displayEachData
 
@@ -369,7 +379,7 @@
 
                 // pass this as params[:data_value] in controller
 
-        $('#summary').html('<div class="text-center"><p class="summary-text-heading">' + 'SUMMARY OF REQUESTED ITEMS  ' + '</p></div>');
+        $('#summary').html('<div class="text-center heading-box"><h3 class="summary-text-heading">' + 'Requested Items Summary  ' + '</h3></div>');
 
 
             for(var key in summaryMarkersHash) {
@@ -381,7 +391,7 @@
               };
             };
 
-        $('#summary').append('<div class="button-box"><a href=""class="btn btn-primary button-show-summary"> Do Something About it! </a></div>');
+        $('#summary').append('<div class="button-box"><a href=""class="btn btn-primary button-show-summary"> Do Something About It! </a></div>');
 
         };
 
