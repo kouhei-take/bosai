@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-12">
-
       <h3 text-center>Searching Your Location...</h3>
     </div>
   </div>
@@ -25,8 +24,9 @@
   };
 
   function failGetPosition(data){
-    //alert( "Failed. Your browser does not support Geolocation." );
-    console.dir(data);
+    alert( "Failed. Your browser does not support Geolocation." );
+    window.location.href = "/users/<%= current_user.id %>/requests/?fail=1"
+    //console.dir(data);
   };
 
   $(document).on('ready', function () {
