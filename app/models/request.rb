@@ -1,6 +1,6 @@
 class Request < ApplicationRecord
   belongs_to :user
-  has_many :items_requests
+  has_many :items_requests, dependent: :destroy
   has_many :messages
   has_many :items, through: :items_requests
 
