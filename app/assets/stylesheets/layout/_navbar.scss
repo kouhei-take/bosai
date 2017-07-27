@@ -6,7 +6,7 @@
   transition: all 0.3s ease;
   display: flex;
   height: 70px;
-  padding: 0px 30px;
+  padding: 0px 20px; //From 30px to 20px 0728Kou
   align-items: center;
   justify-content: space-between;
   color: $white;
@@ -38,7 +38,7 @@
   font-size: 35px;
   flex: 0 1 auto;
   cursor: pointer;
-  padding: 0 20px;
+  padding: 0 0px; //From 20 to 0  0728Kou
 }
 
 /* Navbar standard link */
