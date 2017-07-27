@@ -136,6 +136,40 @@ ItemsRequest.create(item_id: 6, request_id: 23, quantity: 4, status: "open")
 ItemsRequest.create(item_id: 2, request_id: 24, quantity: 20, status: "open")
 
 
+
+## From Here: 0727 Request_Creation_by_Kouhei
+i = 0
+EvacuationPoint.all.each do |evp|
+  i += 1
+  user = User.new
+  user.first_name = evp.name
+  user.last_name = "shelter"
+  user.email = "shelter#{i}@shelter.com"
+  user.address = evp.address
+  user.latitude = evp.latitude
+  user.longitude = evp.longitude
+  user.save!(validate: false) # avoid requesting Google API every time
+
+  request = Request.new
+  request.user = user
+  request.address = user.address
+  request.latitude = user.latitude
+  request.longitude = user.longitude
+
+  #request.priority =  ## Think later
+
+  request.save!(validate: false) # avoid requesting Google API every time
+
+  items_request = ItemsRequest.new
+  items_request.item = Item.find(rand(1..12))
+  items_request.request = request
+  items_request.quantity = rand(10..100)
+  items_request.save!
+end
+
+### To Here: 0727 Request_Creation_by_Kouhei
+
+
 puts 'seed end'
 
 # Original seed requests with Geo coordinates that Chikara has been testing against until WED 26th
@@ -157,5 +191,3 @@ puts 'seed end'
 # request.save
 # request = Request.new(user_id: 8, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
 # request.save
-
-

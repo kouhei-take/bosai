@@ -2,12 +2,16 @@ class RequestsController < ApplicationController
   def index
     @requests = Request.where(user: current_user)
     @near_shelters = EvacuationPoint.near([current_user.latitude, current_user.longitude], 5)
+    @helpings = Request.joins(:messages).where(messages: {user_id: current_user}).where.not(requests: {user_id: current_user})
+    #raise
+
     #raise
     if params[:lat]
       user = current_user
       user.latitude = params[:lat]
       user.longitude = params[:lng]
       user.save!
+      #To Do: Write
     end
   end
 
@@ -37,6 +41,39 @@ class RequestsController < ApplicationController
       marker.picture ActionController::Base.helpers.image_url('fire_image.png')
       # marker.infowindow render_to_string(partial: "/requests/map_box", locals: { request: request })
      end
+
+   ## 0726 by Kouhei
+   ## In order to use parameters in view again, It can be used also in the view page.
+   @radius = params[:radius]
+
+   if @radius == "" || @radius == nil
+     radius = 20  ## I set the default value (No explicit radious case) to 20 Km
+   else
+     radius = @radius
+   end
+
+   ## 0726 by Kouhei
+   ## Below is code for map
+   temp = ItemsRequest.joins(:request).where.not(requests: {latitude: nil} )
+
+    if params[:address] == nil || params[:address] == "" || Request.near(params[:address], radius).first == nil
+      ##&& Request.near(params[:address], @radius, select: "*") != nil
+      @items_requests = temp
+      #raise
+    else
+      nearby = Request.near(params[:address], radius, select: "*")
+      @items_requests = temp.joins(:request).merge(nearby)
+      #raise
+    end
+
+    ## 0726 by Kouhei
+    ## Below code is not used now. For perfomance improvement, I coomennted out.
+    # @hash = Gmaps4rails.build_markers(@requests) do |request, marker|
+    #   marker.lat request.latitude
+    #   marker.lng request.longitude
+    #   marker.picture ActionController::Base.helpers.image_url('fire_image.png')
+    #   # marker.infowindow render_to_string(partial: "/requests/map_box", locals: { request: request })
+    #  end
   end
 
   def edit
