@@ -14,6 +14,10 @@ class User < ApplicationRecord
   after_validation :reverse_geocode
   after_validation :geocode, if: :address_changed?
 
+  ##########Fix For Japanese Lacation Name######################
+  before_save :drop_japanease
+  ##############################################################
+
   ##########################################################################################
   def self.find_for_facebook_oauth(auth)
     user_params = auth.slice(:provider, :uid)
@@ -71,5 +75,14 @@ class User < ApplicationRecord
      clean_up_passwords
      result
    end
-##############################################
+###############################################
+  def drop_japanease
+    #byebug
+    unless self[:address].nil?
+      location_arr = self[:address].split(",")
+      location_arr.pop
+      self[:address] = location_arr.join(",")
+    end
+  end
+################################################
 end
