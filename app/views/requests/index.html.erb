@@ -71,24 +71,26 @@
         <div> </div>
       </div> -->
       <div>
-      <table class="table table-hover table-condensed text-left">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @requests.each do |r| %>
-          <tr>
-            <td scope="row"><%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
-            <td><%= r.status  %></td>
-            <td><%= link_to 'Delete', user_request_path(current_user.id, r.id), data: { confirm: "Are you sure?" }, method: :delete, class: "text-warning text-left" %></td>
-          </tr>
-        <% end %>
-          </tbody>
-        </table>
+      <div class="clickable-table">
+        <table class="table table-hover table-condensed text-left">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+              <% @requests.each do |r| %>
+                <tr class='clickable-row' data-href='/users/<%= r.user_id %>/requests/<%= r.id %>' >
+                  <td scope="row"><%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
+                  <td><%= r.status  %></td>
+                  <td><%= link_to 'Delete', user_request_path(current_user.id, r.id), data: { confirm: "Are you sure?" }, method: :delete, class: "text-warning text-left" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
         <div align="center">
          <%= link_to 'Get Help', new_user_request_path(current_user), class:"btn btn-lg btn-text-small btn-info btn-block" %>
         </div>
@@ -106,25 +108,28 @@
         </div>
         <div> </div>
       </div> -->
-      <div>
-      <table class="table table-hover table-condensed text-left">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Status</th>
-            <th>Request User</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @helping_requests.each do |r| %>
-          <tr>
-            <td scope="row"><%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
-            <td><%= r.status  %></td>
-            <td><%= r.user.first_name %></td>
-          </tr>
-        <% end %>
-          </tbody>
-        </table>
+      <div class="clickable-table">
+        <table class="table table-hover table-condensed text-left">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Status</th>
+              <th style="">Request User</th>
+            </tr>
+          </thead>
+              <tbody>
+
+                  <% @helping_requests.each do |r| %>
+                    <tr class='clickable-row' data-href='/users/<%= r.user_id %>/requests/<%= r.id %>' >
+                      <td scope="row"><%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
+                      <td><%= r.status  %></td>
+                    <td><%= r.user.first_name %></td>
+                    </tr>
+                  <% end %>
+
+              </tbody>
+          </table>
+        </div>
         <div align="center">
          <%= link_to 'Provide Help', requests_list_path, class:"btn btn-lg btn-text-small btn-info btn-block" %>
         </div>
@@ -159,7 +164,11 @@
 <script type="text/javascript">
 /////////////////////////////////////////////////
 
+
   $(document).on('ready', function () {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
     ///////////////////////////////////////////////////////
     //////////////Draw Map/////////////////////////////
     var handler = Gmaps.build('Google', {

@@ -16,8 +16,10 @@ class RequestsController < ApplicationController
     ########################################
     @requests = Request.where(user: current_user)
     @near_shelters = EvacuationPoint.near([current_user.latitude, current_user.longitude], 5)
-    @helping_requests = Request.joins(:messages).where(messages: {user: current_user})
-    
+
+    ##@helping_requests = Request.joins(:messages).where(messages: {user: current_user})
+    @helping_requests = Request.joins(:messages).where("messages.user_id = ? AND requests.user_id != ?", current_user.id, current_user.id )
+
   end
 
   def geolocate
