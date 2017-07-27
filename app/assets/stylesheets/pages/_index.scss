@@ -21,12 +21,12 @@ html, body, #wrapper {
 #results { position: absolute; width: 350px; height: 400px; top: 125px; right: 20px; z-index: 99; background-color: white; border-radius: 2px;
   box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll; color: black; padding: 10px;}
 
-#summary { position: absolute; width: 350px; min-height: 150px; top: 173px; right: 388px; z-index: 99; background-color: white; border-radius: 2px;
+#summary { position: absolute; width: 350px; min-height: 200px; top: 173px; right: 388px; z-index: 99; background-color: white; border-radius: 2px;
   box-shadow: 1px 1px 2px #B3B3B3; overflow-y:scroll; color: black; padding: 10px;}
 
 .results-text {
 padding-left:5px;
-white-space: pre;
+white-space: pre-wrap;
 
 }
 
@@ -40,20 +40,23 @@ white-space: pre;
 margin:0px;
 font-size: 18px;
 padding:10px;
+color:black;
 
 }
 
 .heading-box {
- background-color:gray;
+ background-color:#CDD3CE;
  color:white;
  height: 40px;
  margin-bottom:10px;
+border-bottom: 1px solid darkslategrey;
 
 }
 
 .summary-text-heading {
  // font-weight: bold;
- color:white;
+ color:black;
+
  margin:0px;
  vertical-align: middle;
  font-size: 18px;
@@ -71,14 +74,14 @@ padding:10px;
     float: left;
     padding: 7px;
     margin: 0px;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .km-entry { width: 50px;}
 
 .button-search {
 
-  background-color: blue;
+  background-color: #0B3954;
   border: none;
     border-radius:5px;
 
@@ -95,24 +98,25 @@ padding:10px;
 }
 
 .button-uncheckall {
-  background-color:gray;
+  background-color:#CDD3CE;
   border-radius:5px;
+  color:black;
 }
 
 .button-summarize {
-  background-color:green;
+  background-color:#0B3954;
   border-radius:5px;
 
 }
 
 .button-show-details {
-  background-color:blue;
+  background-color:#0B3954;
   border-radius:5px;
 
 }
 
 .button-show-summary{
-  background-color:blue;
+  background-color:#0B3954;
   border-radius:5px;
 
 }
