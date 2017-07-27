@@ -112,15 +112,15 @@
           <tr>
             <th>Item</th>
             <th>Status</th>
-            <th></th>
+            <th>Request User</th>
           </tr>
         </thead>
         <tbody>
-        <% @requests.each do |r| %>
+        <% @helping_requests.each do |r| %>
           <tr>
             <td scope="row"><%= r.items_requests.map {|i| "#{i.item.name}: #{i.quantity}"}.join(", ") if r.items_requests.present? %></td>
             <td><%= r.status  %></td>
-            <td><%= link_to 'Delete', user_request_path(current_user.id, r.id), data: { confirm: "Are you sure?" }, method: :delete, class: "text-warning text-left" %></td>
+            <td><%= r.user.first_name %></td>
           </tr>
         <% end %>
           </tbody>
