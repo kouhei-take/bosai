@@ -7,8 +7,8 @@
       </div>
       <div id="search">
         <form class="form-inline">
-          <input type="text" id="radius" name="radius" placeholder="Enter KM" class="form-control km-entry" style="width: 100px;">
-          <input type="text" id="address" name="address" placeholder="Point or Enter Address" class="form-control" style="width: 250px;">
+          <input type="text" id="radius" name="radius" placeholder="Enter KM" class="form-control km-entry" style="width: 100px; color:black;">
+          <input type="text" id="address" name="address" placeholder="Enter place or " class="form-control" style="width: 250px; color:black">
           <input type="submit" value="Search" class="btn btn-primary btn-bordered btn-bordered-primary button-search" >
         </form>
 
@@ -55,7 +55,7 @@
 
         function initMap(callback) {
             map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
+            zoom: 13,
             center: new google.maps.LatLng(<%= @items_requests.first.request.latitude %>, <%= @items_requests.first.request.longitude %>),
             mapTypeId: 'roadmap'
           });
@@ -380,18 +380,18 @@
                 // pass this as params[:data_value] in controller
 
         $('#summary').html('<div class="text-center heading-box"><h3 class="summary-text-heading">' + 'Requested Items Summary  ' + '</h3></div>');
-
+console.log(summaryMarkersHash);
 
             for(var key in summaryMarkersHash) {
              if(summaryMarkersHash.hasOwnProperty(key)) {
 
-                $('#summary').append('<p class="summary-text">' + key.charAt(0).toUpperCase() + key.slice(1) + ':  ' + summaryMarkersHash[key] + '</p>'
+                $('#summary').append('<p class="summary-text">' + key.charAt(0).toUpperCase() + key.slice(1) + ':  ' + summaryMarkersHash[key].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</p>'
                 );
 
               };
             };
 
-        $('#summary').append('<div class="button-box"><a href=""class="btn btn-primary button-show-summary"> Do Something About It! </a></div>');
+        // $('#summary').append('<div class="button-box"><a href=""class="btn btn-primary button-show-summary"> Do Something About It! </a></div>');
 
         };
 

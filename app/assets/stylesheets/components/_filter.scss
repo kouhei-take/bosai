@@ -22,11 +22,15 @@
       border-top-right-radius: 0px;
       border-top-left-radius: 0px;
       border-bottom: 1px solid darkslategrey;
-
     }
 
     .top-panel {
-background-color:#0B3954 !important;
+      background-color:#CDD3CE !important;
+      color:black;
+    }
+
+    .panel-title-main {
+      color:black;
     }
 
     .behclick-panel .panel-heading:last-child{
