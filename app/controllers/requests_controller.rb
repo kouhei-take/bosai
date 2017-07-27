@@ -1,10 +1,5 @@
 class RequestsController < ApplicationController
   def index
-    @requests = Request.where(user: current_user)
-    @near_shelters = EvacuationPoint.near([current_user.latitude, current_user.longitude], 5)
-    @helpings = Request.joins(:messages).where(messages: {user_id: current_user}).where.not(requests: {user_id: current_user})
-    #raise
-
     #raise
     if params[:lat]
       user = current_user
@@ -13,6 +8,21 @@ class RequestsController < ApplicationController
       user.save!
       #To Do: Write
     end
+
+    #######################################
+    if current_user.latitude == nil && params[:false] != 1
+      redirect_to requests_geolocate_path
+    end
+    ########################################
+    @requests = Request.where(user: current_user)
+    @near_shelters = EvacuationPoint.near([current_user.latitude, current_user.longitude], 5)
+    @helpings = Request.joins(:messages).where(messages: {user_id: current_user}).where.not(requests: {user_id: current_user})
+    #raise
+
+  end
+
+  def geolocate
+
   end
 
   def show
