@@ -33,6 +33,25 @@ class RequestsController < ApplicationController
   end
 
   def list
+   ###Conditonal of Search 0726 by Kouhei #############
+   ####prams[:address] = string, params[:radius] = integer
+   @items_requests = ItemsRequest.joins(:request).where.not(requests: {longitude: nil, latitude: nil} )
+   ##Request.where(user: current_user)
+
+    # if params[:latitude] && params[:longitude] && radius
+    #   @requests = Request.near([params[:latitude], params[:longitude]], radius)
+    # else
+    #   @requests = Request.where.not(latitude: nil, longitude: nil)
+    # end
+   ######################################################
+
+    @hash = Gmaps4rails.build_markers(@requests) do |request, marker|
+      marker.lat request.latitude
+      marker.lng request.longitude
+      marker.picture ActionController::Base.helpers.image_url('fire_image.png')
+      # marker.infowindow render_to_string(partial: "/requests/map_box", locals: { request: request })
+     end
+
    ## 0726 by Kouhei
    ## In order to use parameters in view again, It can be used also in the view page.
    @radius = params[:radius]
