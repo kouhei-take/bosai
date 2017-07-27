@@ -10,7 +10,7 @@ puts 'seed start!'
 
 
 [
-  "Meguro Citizens Walking Group",
+  "Meguro Citizens Group of Silly Walks",
   "Funny Accents Association, Meguro Riverside",
   "Seirinkan Pizza Lovers Unite",
   "Tennis Players Meguro United",
@@ -101,7 +101,7 @@ Request.create(user_id: 13, category: "medical", address: "2 Chome-2 Mita, Megur
 Request.create(user_id: 14, category: "medical", address: "1 Chome-6 Meguro, Meguro-ku", latitude: 35.634726, longitude: 139.711784, status: "open", priority: "high")
 Request.create(user_id: 15, category: "volunteer", address: "3 Chome-21 Shimomeguro, Meguro-ku", latitude: 35.629211, longitude: 139.707698, status: "open", priority: "medium")
 Request.create(user_id: 16, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.638195, longitude: 139.702116, status: "open", priority: "high")
-Request.create(user_id: 17, category: "supplies", address: "4 Chome-15 Nakameguro, Meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
+Request.create(user_id: 17, category: "supplies", address: "4 Chome-15 Nakameguro, Meguro-ku", latitude: 35.633542, longitude: 139.708926, status: "open", priority: "medium")
 Request.create(user_id: 18, category: "volunteer", address: "1 Chome-6 Meguro, Meguro-ku,", latitude: 35.634710, longitude: 139.711811, status: "open", priority: "high")
 Request.create(user_id: 19, category: "volunteer", address: "2 Chome-16 Shimomeguro, Meguro-ku", latitude: 35.629795, longitude: 139.712333, status: "open", priority: "high")
 Request.create(user_id: 20, category: "supplies", address: "2 Chome-6 Kamiōsaki, Shinagawa-ku", latitude: 35.639002, longitude: 139.715941, status: "open", priority: "low")
@@ -109,6 +109,13 @@ Request.create(user_id: 21, category: "supplies", address: "1 Chome-25 Meguro, M
 Request.create(user_id: 22, category: "volunteer", address: "3 Chome-18 Shirokanedai, Minato-ku", latitude: 35.635138, longitude: 139.720621, status: "open", priority: "high")
 Request.create(user_id: 23, category: "supplies", address: "5 Chome-5 Shimomeguro, Meguro-ku", latitude: 35.629846, longitude: 139.703873, status: "open", priority: "medium")
 Request.create(user_id: 24, category: "supplies", address: "5 Chome-7 Nakameguro, Meguro-ku", latitude: 35.635335, longitude: 139.703329, status: "open", priority: "high")
+
+Request.create(user_id: 23, category: "supplies", address: "5 Chome-7 Nakameguro, Meguro-ku", latitude: 35.635435, longitude: 139.703529, status: "open", priority: "high")
+Request.create(user_id: 21, category: "supplies", address: "5 Chome-7 Nakameguro, Meguro-ku", latitude: 35.635535, longitude: 139.703729, status: "open", priority: "high")
+Request.create(user_id: 20, category: "supplies", address: "5 Chome-7 Nakameguro, Meguro-ku", latitude: 35.635835, longitude: 139.703929, status: "open", priority: "high")
+
+
+
 
 ItemsRequest.create(item_id: 1, request_id: 1, quantity: 20, status: "open")
 ItemsRequest.create(item_id: 10, request_id: 2, quantity: 1, status: "open")
@@ -134,6 +141,10 @@ ItemsRequest.create(item_id: 1, request_id: 21, quantity: 10, status: "open")
 ItemsRequest.create(item_id: 9, request_id: 22, quantity: 6, status: "open")
 ItemsRequest.create(item_id: 6, request_id: 23, quantity: 4, status: "open")
 ItemsRequest.create(item_id: 2, request_id: 24, quantity: 20, status: "open")
+
+ItemsRequest.create(item_id: 2, request_id: 25, quantity: 20, status: "open")
+ItemsRequest.create(item_id: 2, request_id: 26, quantity: 20, status: "open")
+ItemsRequest.create(item_id: 2, request_id: 27, quantity: 20, status: "open")
 
 
 
