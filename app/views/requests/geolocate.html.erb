@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-12">
       <h3 text-center>Searching Your Location...</h3>
     </div>
   </div>
@@ -11,26 +11,26 @@
 
 <script type="text/javascript">
 
-var options = {
-  enableHighAccuracy: true,
-  timeout : 10000,
-  maximumAge: 0
-};
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
+  };
 
-function successGetPosition(position){
-  alert( "Successfully Got Current Location" );
-  //alert( "lat:" + position.coords.latitude + ", lng:" + position.coords.longitude);
-  window.location.href = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
-};
+  function successGetPosition(position) {
+    alert("Successfully Got Current Location");
+    //alert( "lat:" + position.coords.latitude + ", lng:" + position.coords.longitude);
+    window.location.href = "/users/<%= current_user.id %>/requests/?lat=" + position.coords.latitude + "&lng=" + position.coords.longitude;
+  };
 
-function failGetPosition(){
-  alert( "Failed. Your browser does not support Geolocation." );
-  window.location.href = "/users/<%= current_user.id %>/requests/?fail=1";
-};
+  function failGetPosition() {
+    alert("Failed. Your browser does not support Geolocation.");
+    window.location.href = "/users/<%= current_user.id %>/requests/?fail=1";
+  };
 
-$(document).ready(function(){
-  if( navigator.geolocation ){   //Get Current Location
-    navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
-  }
-});
+  $(document).ready(function () {
+    if (navigator.geolocation) { //Get Current Location
+      navigator.geolocation.getCurrentPosition(successGetPosition, failGetPosition, options);
+    }
+  });
 </script>
