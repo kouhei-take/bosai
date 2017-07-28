@@ -62,7 +62,7 @@ end
   {first_name: "Teijira", last_name: "Shintsuka", email: 'teijira@shintsuka.com', password: '123456', address: "Instructors Chair Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.0942", organization_id: 4},
   {first_name: "Hayashide", last_name: "Yamato", email: 'hayashide@yamato.com', password: '123456', address: "Impact Hub, 2-11-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3353.1265", organization_id: 1},
   {first_name: "Matheus", last_name: "Penchel", email: 'matheus@penchel.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.3123.0942", organization_id: 5},
-  {first_name: "Maika", last_name: "Kaku", email: 'maika@kaku.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5023.1208", organization_id: 5},
+  {first_name: "Maika", last_name: "Kaku", email: 'maika@kaku.com', password: '123456', address: "1 Chome-4 Kamiosaki, Shinagawa-ku, Tokyo 141-0021", phone_number: "080.5023.1208", organization_id: 5},
   {first_name: "Akiko", last_name: "Aijima", email: 'akiko@aijima.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "090.5402.6734", organization_id: 3},
   {first_name: "Asuka", last_name: "Tasaka", email: 'asuka@tasaka.com', password: '123456', address: "Indian Homes Meguro, 2-12-3, Meguro, Meguro-ku, Tokyo 153-0063", phone_number: "080.5619.8956", organization_id: 3}
 ].each do |user_params|
@@ -92,7 +92,7 @@ Request.create(user_id: 4, category: "supplies", address: "Down in the meguro ri
 Request.create(user_id: 5, category: "fire", address: "Meguro Police station", latitude: 35.638635, longitude: 139.708012, status: "open", priority: "high")
 Request.create(user_id: 6, category: "medical", address: "Bldg opposite Meguro kuyakusho", latitude: 35.632758, longitude: 139.713752, status: "open", priority: "high")
 Request.create(user_id: 7, category: "supplies", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
-Request.create(user_id: 8, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
+Request.create(user_id: 8, category: "supplies", address: "2-11-3, Meguro, Meguro-ku, Tokyo", latitude: 35.633959, longitude: 139.708126, status: "open", priority: "high")
 Request.create(user_id: 9, category: "volunteer", address: "somewhere in a disaster zone in meguro-ku", latitude: 35.633942, longitude: 139.708126, status: "open", priority: "medium")
 Request.create(user_id: 10, category: "fire", address: "A place closer to meguro-ku", latitude: 35.633842, longitude: 139.708426, status: "open", priority: "high")
 Request.create(user_id: 11, category: "rescue", address: "Near Naka Meguro station", latitude: 35.631869, longitude: 139.706703, status: "open", priority: "high")
@@ -106,7 +106,7 @@ Request.create(user_id: 18, category: "volunteer", address: "A place closer to m
 Request.create(user_id: 19, category: "volunteer", address: "Near Naka Meguro station", latitude: 35.631869, longitude: 139.706703, status: "open", priority: "high")
 Request.create(user_id: 20, category: "supplies", address: "Down in the meguro river", latitude: 35.633281, longitude: 139.701854, status: "open", priority: "low")
 Request.create(user_id: 21, category: "supplies", address: "Meguro Police station", latitude: 35.638635, longitude: 139.708012, status: "open", priority: "high")
-Request.create(user_id: 22, category: "volunteer", address: "Bldg opposite Meguro kuyakusho", latitude: 35.632758, longitude: 139.713752, status: "open", priority: "high")
+Request.create(user_id: 22, category: "volunteer", address: "1 Chome-4 Kamiosaki, Shinagawa-ku, Tokyo 141-0021", latitude: 35.632758, longitude: 139.713752, status: "open", priority: "high")
 Request.create(user_id: 23, category: "supplies", address: "Same bldg as yakitori restaurant opposite naka meguro station", latitude: 35.637222, longitude: 139.706564, status: "open", priority: "medium")
 Request.create(user_id: 24, category: "supplies", address: "Near Meguro station, opposite JR exit", latitude: 35.633281, longitude: 139.706564, status: "open", priority: "high")
 
@@ -117,7 +117,7 @@ ItemsRequest.create(item_id: 2, request_id: 4, quantity: 30, status: "open")
 ItemsRequest.create(item_id: 10, request_id: 5, quantity: 1, status: "open")
 ItemsRequest.create(item_id: 11, request_id: 6, quantity: 1, status: "open")
 ItemsRequest.create(item_id: 3, request_id: 7, quantity: 10, status: "open")
-ItemsRequest.create(item_id: 4, request_id: 8, quantity: 4, status: "open")
+ItemsRequest.create(item_id: 4, request_id: 8, quantity: 15, status: "open")
 ItemsRequest.create(item_id: 7, request_id: 9, quantity: 3, status: "open")
 ItemsRequest.create(item_id: 10, request_id: 10, quantity: 1, status: "open")
 ItemsRequest.create(item_id: 12, request_id: 11, quantity: 1, status: "open")
@@ -131,11 +131,14 @@ ItemsRequest.create(item_id: 9, request_id: 18, quantity: 4, status: "open")
 ItemsRequest.create(item_id: 7, request_id: 19, quantity: 1, status: "open")
 ItemsRequest.create(item_id: 2, request_id: 20, quantity: 25, status: "open")
 ItemsRequest.create(item_id: 1, request_id: 21, quantity: 10, status: "open")
-ItemsRequest.create(item_id: 9, request_id: 22, quantity: 6, status: "open")
+ItemsRequest.create(item_id: 8, request_id: 22, quantity: 15, status: "open")
 ItemsRequest.create(item_id: 6, request_id: 23, quantity: 4, status: "open")
 ItemsRequest.create(item_id: 2, request_id: 24, quantity: 20, status: "open")
 
-
+# fix Impact Hub near by requestor asking for 15 Heavy volunteers
+request = Request.find(22)
+request.created_at = Date.today - 3.days
+request.save!
 
 ## From Here: 0727 Request_Creation_by_Kouhei
 i = 0
@@ -168,12 +171,6 @@ EvacuationPoint.all.each do |evp|
 end
 
 ### To Here: 0727 Request_Creation_by_Kouhei
-request = Request.find(380)
-request.address = "4-15-3 Meguro, Meguro-Ku, Tokyo"
-request.category = "Volunteers"
-request.priority = "High"
-request.created_at = Date.today - 4.days
-request.save!
 
 puts 'seed end'
 
