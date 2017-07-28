@@ -7,6 +7,26 @@
   </div>
 </div> -->
 
+<!-- PROJECT NAME -->
+<div class="container container_bosai_title text-center padded features">
+  <div class="row">
+    <div class="project_title">
+      <h1>Project 'Bosai'</h1>
+      <br />
+      <p>Instant community based <span class="span_style">Disaster Relief Infrastructure</span> anywhere in the world.</p>
+      <p>We solve the inefficiency in the distribution of relief supplies and aid in the aftermath of catastrophic disasters, leading to severe "secondary disasters."</p>
+    </div>
+  </div>
+  <div class="row">
+    <div>
+       <% if user_signed_in? == false %>
+       <%= link_to 'Join our community', new_user_registration_path, class: "btn btn-lg btn-text- btn-success btn-text-w-large" %>
+       <% end %>
+    </div><br /><br />
+  </div>
+</div>
+
+
 <!-- BANNER  -->
 <!-- <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%), url('<%#= image_path 'bosai_banner.jpg' %>');">
   <div class="banner-content">
@@ -21,7 +41,7 @@
 
 <!-- DOUBLE BANNER START-->
 <!-- <div class="container text-center padded features sign_up"> -->
-<div class="container_bosai_banner text-center">
+<div class="container-fluid container_bosai_banner text-center">
   <!-- ROW START -->
   <div class="row">
     <!-- LEFT BANNER START -->
@@ -30,7 +50,7 @@
         <h1>Get Help</h1>
         <p>You are not alone! The thousands of staff and volunteers of the Red Cross are here for you with emergency aid when you need it most, and also advice and assistance to help you recover from a disaster or become better prepared to face one in the future.</p>
          <% if user_signed_in? == false %>
-         <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-lg btn-warning btn-text-large" %>
+         <%= link_to 'I need Help', new_user_registration_path, class: "btn btn-lg btn-warning btn-text-large" %>
          <% end %>
      </div>
     </div>
@@ -41,8 +61,9 @@
       <div class="banner-content" align="center">
         <h1>Provide Help</h1>
         <p>Whether helping one displaced family or thousands, providing care and comfort to an ill or injured service member or veteran, or teaching others how to respond in emergencies, it’s through the efforts of ordinary people that we can do extraordinary things. </p>
+        <!-- Sou July28 11:15 -->
          <% if user_signed_in? == false %>
-         <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-lg btn-warning btn-text-large" %>
+         <%= link_to 'I want to help', new_user_registration_path, class: "btn btn-lg btn-warning btn-text-large" %>
          <% end %>
       </div>
     </div>
@@ -102,24 +123,7 @@
   </div>
 </div> -->
 
-<!-- PROJECT NAME -->
-<div class="container_bosai_title text-center padded features">
-  <div class="row">
-    <div class="project_title">
-      <h1>Project 'Bosai'</h1>
-      <br />
-      <p>Instant community based disaster relief infrastructure anywhere in the world.</p>
-      <p>We solve the inefficiency in the distribution of relief supplies and aid in the aftermath of catastrophic disasters, leading to severe "secondary disasters."</p>
-    </div>
-  </div>
-  <div class="row">
-    <div>
-       <% if user_signed_in? == false %>
-       <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-lg btn-text- btn-success btn-text-w-large" %>
-       <% end %>
-    </div>
-  </div>
-</div>
+
 
 <!-- VALUE PROP -->
 <!-- Sou July28 8:30 -->
