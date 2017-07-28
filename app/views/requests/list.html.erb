@@ -259,7 +259,9 @@
             };
 
             // console.log(priority);
-
+            if (requests[index].id == 364) {
+             priority = "high";
+            };
 
             map.circles.push(createCircle(marker, priorityHash[priority]));
 
