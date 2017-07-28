@@ -168,7 +168,12 @@ EvacuationPoint.all.each do |evp|
 end
 
 ### To Here: 0727 Request_Creation_by_Kouhei
-
+request = Request.find(380)
+request.address = "4-15-3 Meguro, Meguro-Ku, Tokyo"
+request.category = "Volunteers"
+request.priority = "High"
+request.created_at = Date.today - 4.days
+request.save!
 
 puts 'seed end'
 
