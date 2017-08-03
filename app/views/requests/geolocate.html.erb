@@ -31,11 +31,11 @@
   };
 
   function failGetPosition(data) {
-    //alert("Your browser does not support Geolocation.");
-    //window.location.href = "/users/<%= current_user.id %>/requests/?fail=1"
+    alert("Your browser does not support Geolocation.");
+    window.location.href = "/users/<%= current_user.id %>/requests/?fail=1"
     //Above 2 lines are true code for error
-    window.location.href = "/users/<%= current_user.id %>/requests/?lat=35.6339419&lng=139.7059374"
-    //Above 1 line is for Demo Backup
+    //window.location.href = "/users/<%= current_user.id %>/requests/?lat=35.6339419&lng=139.7059374"
+    //Above 1 line is for Demo Backup. Kou commented out at 0803.
     //console.dir(data);
   };
 
